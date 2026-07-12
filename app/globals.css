@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand — deep asphalt navy */
+  --color-brand-50: oklch(0.97 0.01 250);
+  --color-brand-100: oklch(0.93 0.02 250);
+  --color-brand-200: oklch(0.86 0.04 250);
+  --color-brand-300: oklch(0.74 0.06 251);
+  --color-brand-400: oklch(0.6 0.08 252);
+  --color-brand-500: oklch(0.48 0.09 253);
+  --color-brand-600: oklch(0.4 0.09 254);
+  --color-brand-700: oklch(0.34 0.08 255);
+  --color-brand-800: oklch(0.28 0.06 256);
+  --color-brand-900: oklch(0.23 0.05 257);
+  --color-brand-950: oklch(0.17 0.04 258);
+
+  /* Accent — safety orange */
+  --color-accent-50: oklch(0.97 0.02 65);
+  --color-accent-100: oklch(0.94 0.05 65);
+  --color-accent-200: oklch(0.88 0.09 62);
+  --color-accent-300: oklch(0.82 0.13 58);
+  --color-accent-400: oklch(0.75 0.17 52);
+  --color-accent-500: oklch(0.7 0.19 45);
+  --color-accent-600: oklch(0.63 0.19 40);
+  --color-accent-700: oklch(0.55 0.17 38);
+  --color-accent-800: oklch(0.47 0.14 36);
+  --color-accent-900: oklch(0.4 0.11 36);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", "Noto Sans Arabic", "Helvetica Neue", Arial, sans-serif;
+
+  --shadow-card: 0 1px 2px 0 rgb(15 23 42 / 0.06),
+    0 8px 24px -12px rgb(15 23 42 / 0.16);
+  --shadow-card-hover: 0 2px 4px 0 rgb(15 23 42 / 0.08),
+    0 16px 32px -12px rgb(15 23 42 / 0.24);
+}
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-slate-50 text-slate-900 antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  @apply bg-accent-200 text-brand-950;
+}
+
+/* Subtle route-map texture for hero sections */
+.hero-grid {
+  background-image: radial-gradient(
+      circle at 1px 1px,
+      rgb(255 255 255 / 0.09) 1px,
+      transparent 0
+    );
+  background-size: 28px 28px;
+}
