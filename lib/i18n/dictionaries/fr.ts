@@ -340,6 +340,20 @@ const fr: Dictionary = {
     moderationNote:
       "Modération en dernier recours : l'administrateur peut supprimer toute offre publiée.",
   },
+  adminUI: {
+    internal: "Backoffice interne",
+    backToSite: "Retour au site",
+    allOffers: "Toutes les offres publiées",
+    filterAll: "Tous",
+    deleteOffer: "Supprimer l'offre",
+    addCity: "Ajouter une ville",
+    cityName: "Nom de la ville",
+    region: "Région",
+    planPrice: "Prix mensuel (MAD)",
+    latestOffers: "Dernières offres publiées",
+    mrr: "Revenu mensuel récurrent",
+    saved: "Enregistré.",
+  },
   messages: {
     title: "Messages",
     empty: "Aucune conversation.",

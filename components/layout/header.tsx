@@ -69,7 +69,7 @@ function SpacesMenu({ locale, dict }: { locale: Locale; dict: Dictionary }) {
     { href: `/${locale}/dashboard/user`, label: dict.nav.spaceUser },
     { href: `/${locale}/dashboard/company`, label: dict.nav.spaceCompany },
     { href: `/${locale}/dashboard/manager`, label: dict.nav.spaceManager },
-    { href: `/${locale}/dashboard/admin`, label: dict.nav.spaceAdmin },
+    { href: `/${locale}/admin`, label: dict.nav.spaceAdmin },
   ];
   return (
     <div className="relative" ref={ref}>
@@ -178,7 +178,7 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
               { href: `/${locale}/dashboard/user`, label: dict.nav.spaceUser },
               { href: `/${locale}/dashboard/company`, label: dict.nav.spaceCompany },
               { href: `/${locale}/dashboard/manager`, label: dict.nav.spaceManager },
-              { href: `/${locale}/dashboard/admin`, label: dict.nav.spaceAdmin },
+              { href: `/${locale}/admin`, label: dict.nav.spaceAdmin },
               { href: `/${locale}/login`, label: dict.common.login },
             ].map((it) => (
               <Link

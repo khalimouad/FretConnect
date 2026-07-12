@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
-import { getDictionary } from "@/lib/i18n";
 import { isLocale, localeMeta, locales } from "@/lib/i18n/config";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
 import "../globals.css";
 
 const inter = Inter({
@@ -34,16 +31,11 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  const dict = getDictionary(locale);
   const meta = localeMeta[locale];
 
   return (
     <html lang={meta.htmlLang} dir={meta.dir} className={inter.variable}>
-      <body className="flex min-h-screen flex-col font-sans">
-        <Header locale={locale} dict={dict} />
-        <main className="flex-1">{children}</main>
-        <Footer locale={locale} dict={dict} />
-      </body>
+      <body className="font-sans">{children}</body>
     </html>
   );
 }

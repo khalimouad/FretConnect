@@ -1,0 +1,162 @@
+"use client";
+
+import { useState } from "react";
+import type { Dictionary } from "@/lib/i18n";
+import type { City } from "@/lib/domain/types";
+import { cities as seedCities, countries, regions } from "@/lib/data/geo";
+import { Button, Card, Field, inputClass } from "@/components/ui";
+import { GlobeIcon, MapPinIcon } from "@/components/icons";
+
+/**
+ * Admin §3.1: manage the Country > Region > City referential — including
+ * future activation of West-African and European countries.
+ */
+export function GeoAdmin({ dict }: { dict: Dictionary }) {
+  const [cities, setCities] = useState<City[]>(seedCities);
+  const [showForm, setShowForm] = useState(false);
+  const [regionId, setRegionId] = useState(regions[0].id);
+  const [cityName, setCityName] = useState("");
+
+  const zoneLabel: Record<string, string> = {
+    maghreb: "Maghreb",
+    west_africa: "West Africa",
+    europe: "Europe",
+  };
+
+  function addCity(e: React.FormEvent) {
+    e.preventDefault();
+    const region = regions.find((r) => r.id === regionId)!;
+    setCities((prev) => [
+      ...prev,
+      {
+        id: `${cityName.toLowerCase().replace(/\s+/g, "-")}-${Date.now()}`,
+        regionId,
+        countryCode: region.countryCode,
+        name: cityName,
+      },
+    ]);
+    setCityName("");
+    setShowForm(false);
+  }
+
+  return (
+    <>
+      <p className="max-w-2xl text-sm text-slate-500">{dict.adminDash.geoHint}</p>
+
+      {/* Countries */}
+      <Card className="mt-6 overflow-x-auto">
+        <table className="w-full min-w-[560px] text-sm">
+          <thead>
+            <tr className="border-b border-slate-200 text-xs uppercase tracking-wide text-slate-400">
+              <th className="px-4 py-3 text-start font-medium">ISO</th>
+              <th className="px-4 py-3 text-start font-medium">{dict.dash.geo}</th>
+              <th className="px-4 py-3 text-start font-medium">Zone</th>
+              <th className="px-4 py-3 text-start font-medium">{dict.common.currency}</th>
+              <th className="px-4 py-3 text-start font-medium">{dict.common.status}</th>
+              <th className="px-4 py-3 text-start font-medium">
+                {dict.adminDash.regionsCount} / {dict.adminDash.citiesCount}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {countries.map((c) => {
+              const regionCount = regions.filter((r) => r.countryCode === c.code).length;
+              const cityCount = cities.filter((ci) => ci.countryCode === c.code).length;
+              return (
+                <tr key={c.code} className="border-b border-slate-100 last:border-0">
+                  <td className="px-4 py-3 font-mono text-xs text-slate-500">{c.code}</td>
+                  <td className="px-4 py-3 font-medium text-brand-950">
+                    <span className="inline-flex items-center gap-1.5">
+                      <GlobeIcon width={14} height={14} className="text-slate-300" />
+                      {c.name}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3 text-slate-500">{zoneLabel[c.zone]}</td>
+                  <td className="px-4 py-3 font-mono text-xs text-slate-500">{c.currency}</td>
+                  <td className="px-4 py-3">
+                    {c.status === "active" ? (
+                      <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-200">
+                        {dict.adminDash.active}
+                      </span>
+                    ) : (
+                      <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-500 ring-1 ring-inset ring-slate-200">
+                        {dict.adminDash.planned}
+                      </span>
+                    )}
+                  </td>
+                  <td className="px-4 py-3 text-slate-500">
+                    {regionCount || "—"} / {cityCount || "—"}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </Card>
+
+      {/* Regions & cities (Morocco, active) */}
+      <div className="mt-8 flex flex-wrap items-center justify-between gap-3">
+        <h2 className="text-lg font-bold text-brand-950">
+          Maroc — {dict.adminDash.regionsCount} & {dict.adminDash.citiesCount}
+        </h2>
+        <Button size="sm" onClick={() => setShowForm((v) => !v)}>
+          + {dict.adminUI.addCity}
+        </Button>
+      </div>
+
+      {showForm ? (
+        <Card className="mt-4 p-5">
+          <form onSubmit={addCity} className="grid items-end gap-4 sm:grid-cols-3">
+            <Field label={dict.adminUI.region}>
+              <select
+                value={regionId}
+                onChange={(e) => setRegionId(e.target.value)}
+                className={inputClass}
+              >
+                {regions.map((r) => (
+                  <option key={r.id} value={r.id}>
+                    {r.name}
+                  </option>
+                ))}
+              </select>
+            </Field>
+            <Field label={dict.adminUI.cityName}>
+              <input
+                required
+                value={cityName}
+                onChange={(e) => setCityName(e.target.value)}
+                className={inputClass}
+              />
+            </Field>
+            <Button type="submit">{dict.common.save}</Button>
+          </form>
+        </Card>
+      ) : null}
+
+      <div className="mt-4 grid gap-3 md:grid-cols-2">
+        {regions.map((r) => {
+          const regionCities = cities.filter((c) => c.regionId === r.id);
+          return (
+            <Card key={r.id} className="p-4">
+              <p className="text-sm font-semibold text-brand-950">{r.name}</p>
+              <div className="mt-2 flex flex-wrap gap-1.5">
+                {regionCities.map((c) => (
+                  <span
+                    key={c.id}
+                    className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-600"
+                  >
+                    <MapPinIcon width={11} height={11} className="text-slate-400" />
+                    {c.name}
+                  </span>
+                ))}
+                {regionCities.length === 0 ? (
+                  <span className="text-xs text-slate-400">—</span>
+                ) : null}
+              </div>
+            </Card>
+          );
+        })}
+      </div>
+    </>
+  );
+}

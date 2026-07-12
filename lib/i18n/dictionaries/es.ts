@@ -338,6 +338,20 @@ const es: Dictionary = {
     moderationNote:
       "Moderación de último recurso: el administrador puede eliminar cualquier oferta publicada.",
   },
+  adminUI: {
+    internal: "Back office interno",
+    backToSite: "Volver al sitio",
+    allOffers: "Todas las ofertas publicadas",
+    filterAll: "Todas",
+    deleteOffer: "Eliminar oferta",
+    addCity: "Añadir una ciudad",
+    cityName: "Nombre de la ciudad",
+    region: "Región",
+    planPrice: "Precio mensual (MAD)",
+    latestOffers: "Últimas ofertas publicadas",
+    mrr: "Ingreso mensual recurrente",
+    saved: "Guardado.",
+  },
   messages: {
     title: "Mensajes",
     empty: "Sin conversaciones.",

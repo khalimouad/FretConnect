@@ -331,6 +331,20 @@ const en = {
     moderationNote:
       "Last-resort moderation: administrators can remove any published offer.",
   },
+  adminUI: {
+    internal: "Internal backoffice",
+    backToSite: "Back to site",
+    allOffers: "All published offers",
+    filterAll: "All",
+    deleteOffer: "Delete offer",
+    addCity: "Add a city",
+    cityName: "City name",
+    region: "Region",
+    planPrice: "Monthly price (MAD)",
+    latestOffers: "Latest published offers",
+    mrr: "Monthly recurring revenue",
+    saved: "Saved.",
+  },
   messages: {
     title: "Messages",
     empty: "No conversations yet.",

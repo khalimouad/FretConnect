@@ -23,7 +23,7 @@ npm run build   # build de production (toutes les locales pré-rendues)
 | Section | Implémentation |
 | --- | --- |
 | §2 Référentiel géographique | Hiérarchie Pays → Région → Ville, codes ISO, zones AO/Europe « prévues » (`lib/data/geo.ts`) |
-| §3 Rôles | 4 espaces : Utilisateur final, Société de transport, Manager, Administrateur (`/dashboard/*`) |
+| §3 Rôles | 4 espaces : Utilisateur final, Société de transport, Manager (`/dashboard/*`) + backoffice interne Administrateur (`/admin`) |
 | §4.1 Inscription | Double parcours : expéditeur (simple) / transporteur (onboarding + choix de formule + validation Manager) |
 | §4.2 Cycle de vie des offres | Machine à états `draft → active → pourvue/expirée/suspendue/annulée → archivée` (`lib/domain/workflow.ts`), actions dans le backoffice transporteur, expiration automatique après la date de disponibilité |
 | §4.3 Recherche | Filtres combinés (villes, date, véhicule, tonnage, prix) + tri (date, prix, capacité) sur `/search` |
@@ -36,8 +36,9 @@ npm run build   # build de production (toutes les locales pré-rendues)
 ## Structure
 
 ```
-app/[locale]/            pages (landing, search, offers/[id], login, register, pricing, dashboard/*)
-components/              UI (primitives, icônes, header/footer, cartes offre, dashboards)
+app/[locale]/(site)/     site public (landing, search, offers/[id], login, register, pricing, dashboard/*)
+app/[locale]/admin/      backoffice interne Administrateur (vue d'ensemble, managers, modération, référentiel géo, formules)
+components/              UI (primitives, icônes, header/footer, cartes offre, dashboards, admin)
 lib/domain/              types métier + machines à états (offres, comptes société)
 lib/data/                référentiel géo, données de démonstration, repository
 lib/i18n/                config locales + dictionnaires AR/FR/EN/ES
