@@ -1,10 +1,11 @@
 import { notFound } from "next/navigation";
 import { getDictionary } from "@/lib/i18n";
 import { isLocale } from "@/lib/i18n/config";
+import { managers } from "@/lib/data/mock";
 import { BackofficeShell } from "@/components/backoffice/shell";
 
-/** Internal Administrator backoffice (§3.1). Auth-gated in production. */
-export default async function AdminLayout({
+/** Internal Manager backoffice (§3.2) — carrier validation and follow-up. */
+export default async function ManagerLayout({
   children,
   params,
 }: {
@@ -14,24 +15,22 @@ export default async function AdminLayout({
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const dict = getDictionary(locale);
-  const base = `/${locale}/admin`;
+  const base = `/${locale}/dashboard/manager`;
 
   return (
     <BackofficeShell
       tone="dark"
       homeHref={base}
-      roleLabel={dict.adminDash.title}
+      roleLabel={dict.nav.spaceManager}
       items={[
         { href: base, label: dict.dash.overview, icon: "home" },
-        { href: `${base}/managers`, label: dict.dash.managers, icon: "shield" },
+        { href: `${base}/companies`, label: dict.dash.companies, icon: "users" },
         { href: `${base}/moderation`, label: dict.dash.moderation, icon: "bell" },
-        { href: `${base}/geo`, label: dict.dash.geo, icon: "mappin" },
-        { href: `${base}/plans`, label: dict.dash.plansAdmin, icon: "globe" },
       ]}
       backHref={`/${locale}`}
       backLabel={dict.adminUI.backToSite}
       identityLabel={dict.dash.signedInAs}
-      identity="admin@fretconnect.ma"
+      identity={managers[0].name}
       demoNote={`${dict.adminUI.internal} · ${dict.common.demoBanner}`}
     >
       {children}

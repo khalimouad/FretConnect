@@ -17,7 +17,7 @@ export default async function LoginPage({
     { href: `/${locale}/dashboard/user`, label: dict.nav.spaceUser },
     { href: `/${locale}/dashboard/company`, label: dict.nav.spaceCompany },
     { href: `/${locale}/dashboard/manager`, label: dict.nav.spaceManager },
-    { href: `/${locale}/dashboard/admin`, label: dict.nav.spaceAdmin },
+    { href: `/${locale}/admin`, label: dict.nav.spaceAdmin },
   ];
 
   return (
