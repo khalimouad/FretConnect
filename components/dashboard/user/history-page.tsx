@@ -33,7 +33,7 @@ export function UserHistoryPage({ locale, dict }: { locale: Locale; dict: Dictio
                   <RouteLine
                     departure={cityName(h.offer.departureCityId)}
                     arrival={cityName(h.offer.arrivalCityId)}
-                    className="font-semibold text-brand-950"
+                    className="font-semibold text-brand-950 dark:text-white"
                   />
                 </Link>
                 <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">{formatDate(h.createdAt, locale)}</p>

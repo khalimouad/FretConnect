@@ -10,10 +10,12 @@ import { formatDate, formatNumber } from "@/lib/format";
 import { Button, Card, Stat } from "@/components/ui";
 import { RouteLine } from "@/components/offers/offer-card";
 import { CheckIcon } from "@/components/icons";
+import { useToast } from "@/components/toast";
 
 const COMPANY_ID = "co-atlas";
 
 export function CompanyOverview({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+  const { push } = useToast();
   const companyOffers = offers.filter((o) => o.companyId === COMPANY_ID);
   const active = companyOffers.filter((o) => o.status === "active");
   const totalViews = companyOffers.reduce((sum, o) => sum + o.views, 0);
@@ -28,6 +30,7 @@ export function CompanyOverview({ locale, dict }: { locale: Locale; dict: Dictio
 
   function resolve(id: string, status: "confirmed" | "declined") {
     setAcceptances((prev) => prev.map((a) => (a.id === id ? { ...a, status } : a)));
+    push(status === "confirmed" ? dict.toast.acceptanceConfirmed : dict.toast.acceptanceDeclined);
   }
 
   return (
@@ -67,7 +70,7 @@ export function CompanyOverview({ locale, dict }: { locale: Locale; dict: Dictio
                       <RouteLine
                         departure={cityName(offer.departureCityId)}
                         arrival={cityName(offer.arrivalCityId)}
-                        className="font-semibold text-brand-950"
+                        className="font-semibold text-brand-950 dark:text-white"
                       />
                       <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                         {user?.name} · {formatDate(a.createdAt, locale)}

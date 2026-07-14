@@ -19,6 +19,8 @@ export default async function AdminLayout({
   return (
     <BackofficeShell
       tone="dark"
+      locale={locale}
+      themeLabels={dict.theme}
       homeHref={base}
       roleLabel={dict.adminDash.title}
       items={[

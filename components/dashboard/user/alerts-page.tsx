@@ -8,6 +8,7 @@ import { cities, cityName } from "@/lib/data/geo";
 import { Button, Card, inputClass } from "@/components/ui";
 import { RouteLine } from "@/components/offers/offer-card";
 import { BellIcon } from "@/components/icons";
+import { useToast } from "@/components/toast";
 
 const vehicleTypes: VehicleType[] = [
   "truck",
@@ -19,6 +20,7 @@ const vehicleTypes: VehicleType[] = [
 ];
 
 export function UserAlertsPage({ dict }: { dict: Dictionary }) {
+  const { push: pushToast } = useToast();
   const user = users[0];
   const [alerts, setAlerts] = useState<Alert[]>(seedAlerts);
   const [showForm, setShowForm] = useState(false);
@@ -46,6 +48,7 @@ export function UserAlertsPage({ dict }: { dict: Dictionary }) {
     setDep("");
     setArr("");
     setVeh("");
+    pushToast(dict.search.alertCreated);
   }
 
   return (
@@ -126,7 +129,7 @@ export function UserAlertsPage({ dict }: { dict: Dictionary }) {
                 <RouteLine
                   departure={a.departureCityId ? cityName(a.departureCityId) : dict.search.anyCity}
                   arrival={a.arrivalCityId ? cityName(a.arrivalCityId) : dict.search.anyCity}
-                  className="font-semibold text-brand-950"
+                  className="font-semibold text-brand-950 dark:text-white"
                 />
                 <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
                   {a.vehicleType ? `${dict.vehicles[a.vehicleType]} · ` : ""}
@@ -136,7 +139,10 @@ export function UserAlertsPage({ dict }: { dict: Dictionary }) {
                 </p>
               </div>
               <button
-                onClick={() => setAlerts((prev) => prev.filter((x) => x.id !== a.id))}
+                onClick={() => {
+                  setAlerts((prev) => prev.filter((x) => x.id !== a.id));
+                  pushToast(dict.toast.alertDeleted, "info");
+                }}
                 className="cursor-pointer rounded-lg border border-red-200 px-3 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50 dark:border-red-900 dark:text-red-400 dark:hover:bg-red-950"
               >
                 {dict.userDash.deleteAlert}

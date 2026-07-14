@@ -11,8 +11,18 @@ import { formatDate, formatMoney } from "@/lib/format";
 import { Button, Card, OfferStatusBadge, inputClass } from "@/components/ui";
 import { RouteLine } from "@/components/offers/offer-card";
 import { TruckIcon } from "@/components/icons";
+import { useToast } from "@/components/toast";
 
 const COMPANY_ID = "co-atlas";
+
+const actionToastKey: Record<string, keyof Dictionary["toast"]> = {
+  publish: "offerPublished",
+  markFilled: "offerFilled",
+  cancelOffer: "offerCancelled",
+  archive: "offerArchived",
+  republish: "offerRepublished",
+  delete: "offerDeleted",
+};
 
 const vehicleTypes: VehicleType[] = [
   "truck",
@@ -24,17 +34,20 @@ const vehicleTypes: VehicleType[] = [
 ];
 
 export function CompanyOffersPage({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+  const { push } = useToast();
   const [offers, setOffers] = useState<Offer[]>(
     seedOffers.filter((o) => o.companyId === COMPANY_ID),
   );
   const [showForm, setShowForm] = useState(false);
 
-  function applyAction(offerId: string, to: OfferStatus | "delete") {
+  function applyAction(offerId: string, to: OfferStatus | "delete", labelKey: string) {
     setOffers((prev) =>
       to === "delete"
         ? prev.filter((o) => o.id !== offerId)
         : prev.map((o) => (o.id === offerId ? { ...o, status: to } : o)),
     );
+    const key = actionToastKey[labelKey];
+    if (key) push(dict.toast[key]);
   }
 
   const sortedOffers = useMemo(
@@ -75,6 +88,7 @@ export function CompanyOffersPage({ locale, dict }: { locale: Locale; dict: Dict
           onCreate={(offer, publish) => {
             setOffers((prev) => [{ ...offer, status: publish ? "active" : "draft" }, ...prev]);
             setShowForm(false);
+            push(publish ? dict.toast.offerPublished : dict.companyDash.offerCreated);
           }}
         />
       ) : null}
@@ -116,7 +130,7 @@ export function CompanyOffersPage({ locale, dict }: { locale: Locale; dict: Dict
                     {offerActions(o.status).map((action) => (
                       <button
                         key={action.labelKey}
-                        onClick={() => applyAction(o.id, action.to)}
+                        onClick={() => applyAction(o.id, action.to, action.labelKey)}
                         className={`cursor-pointer rounded-md border px-2 py-1 text-xs font-medium ${
                           action.labelKey === "delete"
                             ? "border-red-200 text-red-600 hover:bg-red-50"

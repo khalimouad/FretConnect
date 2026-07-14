@@ -7,8 +7,10 @@ import { offers as seedOffers } from "@/lib/data/mock";
 import { cityName } from "@/lib/data/geo";
 import { Button, Card } from "@/components/ui";
 import { RouteLine } from "@/components/offers/offer-card";
+import { useToast } from "@/components/toast";
 
 export function ManagerModerationPage({ dict }: { dict: Dictionary }) {
+  const { push } = useToast();
   const [flagged, setFlagged] = useState<Offer[]>(
     seedOffers.filter((o) => o.flagged && o.status === "active"),
   );
@@ -32,7 +34,7 @@ export function ManagerModerationPage({ dict }: { dict: Dictionary }) {
                   <RouteLine
                     departure={cityName(o.departureCityId)}
                     arrival={cityName(o.arrivalCityId)}
-                    className="font-semibold text-brand-950"
+                    className="font-semibold text-brand-950 dark:text-white"
                   />
                   <p className="mt-1 text-sm text-amber-700">
                     {dict.managerDash.flagReason}: {o.flagged?.reason}
@@ -42,14 +44,20 @@ export function ManagerModerationPage({ dict }: { dict: Dictionary }) {
                   <Button
                     size="sm"
                     variant="danger"
-                    onClick={() => setFlagged((prev) => prev.filter((x) => x.id !== o.id))}
+                    onClick={() => {
+                      setFlagged((prev) => prev.filter((x) => x.id !== o.id));
+                      push(dict.toast.offerSuspendedMod);
+                    }}
                   >
                     {dict.managerDash.suspendOffer}
                   </Button>
                   <Button
                     size="sm"
                     variant="outline"
-                    onClick={() => setFlagged((prev) => prev.filter((x) => x.id !== o.id))}
+                    onClick={() => {
+                      setFlagged((prev) => prev.filter((x) => x.id !== o.id));
+                      push(dict.toast.offerDismissed, "info");
+                    }}
                   >
                     {dict.managerDash.dismiss}
                   </Button>

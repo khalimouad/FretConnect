@@ -8,14 +8,26 @@ import { companies as seedCompanies } from "@/lib/data/mock";
 import { cityName } from "@/lib/data/geo";
 import { formatDate } from "@/lib/format";
 import { Card, CompanyStatusBadge, SubscriptionBadge } from "@/components/ui";
+import { useToast } from "@/components/toast";
+
+const statusToast: Record<CompanyStatus, keyof Dictionary["toast"] | null> = {
+  pending: null,
+  validated: "companyReactivated",
+  suspended: "companySuspended",
+  rejected: null,
+  closed: "companyClosed",
+};
 
 export function ManagerCompaniesPage({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+  const { push } = useToast();
   const [companies, setCompanies] = useState<Company[]>(
     seedCompanies.filter((c) => c.status !== "pending" && c.status !== "rejected"),
   );
 
   function setStatus(id: string, to: CompanyStatus) {
     setCompanies((prev) => prev.map((c) => (c.id === id ? { ...c, status: to } : c)));
+    const key = statusToast[to];
+    if (key) push(dict.toast[key]);
   }
 
   return (

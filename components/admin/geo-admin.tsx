@@ -6,12 +6,14 @@ import type { City } from "@/lib/domain/types";
 import { cities as seedCities, countries, regions } from "@/lib/data/geo";
 import { Button, Card, Field, inputClass } from "@/components/ui";
 import { GlobeIcon, MapPinIcon } from "@/components/icons";
+import { useToast } from "@/components/toast";
 
 /**
  * Admin §3.1: manage the Country > Region > City referential — including
  * future activation of West-African and European countries.
  */
 export function GeoAdmin({ dict }: { dict: Dictionary }) {
+  const { push } = useToast();
   const [cities, setCities] = useState<City[]>(seedCities);
   const [showForm, setShowForm] = useState(false);
   const [regionId, setRegionId] = useState(regions[0].id);
@@ -37,6 +39,7 @@ export function GeoAdmin({ dict }: { dict: Dictionary }) {
     ]);
     setCityName("");
     setShowForm(false);
+    push(dict.toast.citySaved);
   }
 
   return (
@@ -63,28 +66,28 @@ export function GeoAdmin({ dict }: { dict: Dictionary }) {
               const regionCount = regions.filter((r) => r.countryCode === c.code).length;
               const cityCount = cities.filter((ci) => ci.countryCode === c.code).length;
               return (
-                <tr key={c.code} className="border-b border-slate-100 last:border-0">
-                  <td className="px-4 py-3 font-mono text-xs text-slate-500">{c.code}</td>
+                <tr key={c.code} className="border-b border-slate-100 last:border-0 dark:border-slate-800">
+                  <td className="px-4 py-3 font-mono text-xs text-slate-500 dark:text-slate-400">{c.code}</td>
                   <td className="px-4 py-3 font-medium text-brand-950 dark:text-white">
                     <span className="inline-flex items-center gap-1.5">
-                      <GlobeIcon width={14} height={14} className="text-slate-300" />
+                      <GlobeIcon width={14} height={14} className="text-slate-300 dark:text-slate-600" />
                       {c.name}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-slate-500">{zoneLabel[c.zone]}</td>
-                  <td className="px-4 py-3 font-mono text-xs text-slate-500">{c.currency}</td>
+                  <td className="px-4 py-3 text-slate-500 dark:text-slate-400">{zoneLabel[c.zone]}</td>
+                  <td className="px-4 py-3 font-mono text-xs text-slate-500 dark:text-slate-400">{c.currency}</td>
                   <td className="px-4 py-3">
                     {c.status === "active" ? (
-                      <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-200">
+                      <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-200 dark:bg-emerald-950 dark:text-emerald-300 dark:ring-emerald-900">
                         {dict.adminDash.active}
                       </span>
                     ) : (
-                      <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-500 ring-1 ring-inset ring-slate-200">
+                      <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-500 ring-1 ring-inset ring-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:ring-slate-700">
                         {dict.adminDash.planned}
                       </span>
                     )}
                   </td>
-                  <td className="px-4 py-3 text-slate-500">
+                  <td className="px-4 py-3 text-slate-500 dark:text-slate-400">
                     {regionCount || "—"} / {cityCount || "—"}
                   </td>
                 </tr>
@@ -143,7 +146,7 @@ export function GeoAdmin({ dict }: { dict: Dictionary }) {
                 {regionCities.map((c) => (
                   <span
                     key={c.id}
-                    className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-600"
+                    className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-300"
                   >
                     <MapPinIcon width={11} height={11} className="text-slate-400 dark:text-slate-500" />
                     {c.name}

@@ -20,6 +20,8 @@ export default async function CompanyLayout({
   return (
     <BackofficeShell
       tone="dark"
+      locale={locale}
+      themeLabels={dict.theme}
       homeHref={base}
       roleLabel={dict.nav.spaceCompany}
       items={[

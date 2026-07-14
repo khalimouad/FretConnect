@@ -8,9 +8,11 @@ import { companies, plans as seedPlans } from "@/lib/data/mock";
 import { formatMoney } from "@/lib/format";
 import { Button, Card, Field, inputClass } from "@/components/ui";
 import { CheckIcon } from "@/components/icons";
+import { useToast } from "@/components/toast";
 
 /** Admin §3.1: manage subscription plans and pricing for carriers. */
 export function PlansAdmin({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+  const { push } = useToast();
   const [plans, setPlans] = useState<Plan[]>(seedPlans);
   const [savedId, setSavedId] = useState<string | null>(null);
 
@@ -28,13 +30,13 @@ export function PlansAdmin({ locale, dict }: { locale: Locale; dict: Dictionary 
           <Card key={plan.id} className="p-6">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-bold text-brand-950 dark:text-white">{dict.plans[plan.nameKey]}</h2>
-              <span className="rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-medium text-brand-700 ring-1 ring-inset ring-brand-200">
+              <span className="rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-medium text-brand-700 ring-1 ring-inset ring-brand-200 dark:bg-brand-950 dark:text-brand-300 dark:ring-brand-800">
                 {subscribers} {dict.adminDash.companiesCount}
               </span>
             </div>
-            <p className="mt-2 text-2xl font-bold text-accent-600">
+            <p className="mt-2 text-2xl font-bold text-accent-600 dark:text-accent-400">
               {formatMoney(plan.monthlyPrice, locale)}
-              <span className="text-sm font-medium text-slate-400">{dict.common.perMonth}</span>
+              <span className="text-sm font-medium text-slate-400 dark:text-slate-500">{dict.common.perMonth}</span>
             </p>
 
             <form
@@ -42,6 +44,7 @@ export function PlansAdmin({ locale, dict }: { locale: Locale; dict: Dictionary 
               onSubmit={(e) => {
                 e.preventDefault();
                 setSavedId(plan.id);
+                push(dict.toast.plansSaved);
                 setTimeout(() => setSavedId(null), 2000);
               }}
             >
@@ -77,7 +80,7 @@ export function PlansAdmin({ locale, dict }: { locale: Locale; dict: Dictionary 
                   {dict.common.save}
                 </Button>
                 {savedId === plan.id ? (
-                  <span className="inline-flex items-center gap-1 text-xs font-medium text-emerald-600">
+                  <span className="inline-flex items-center gap-1 text-xs font-medium text-emerald-600 dark:text-emerald-400">
                     <CheckIcon width={13} height={13} />
                     {dict.adminUI.saved}
                   </span>

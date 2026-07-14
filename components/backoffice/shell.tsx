@@ -1,7 +1,9 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import type { Locale } from "@/lib/i18n/config";
 import { TruckIcon } from "@/components/icons";
 import { SidebarNav, type NavItem } from "./sidebar-nav";
+import { Topbar } from "./topbar";
 
 /**
  * Shared sidebar shell for every signed-in space: the internal back
@@ -10,6 +12,7 @@ import { SidebarNav, type NavItem } from "./sidebar-nav";
  */
 export function BackofficeShell({
   tone,
+  locale,
   homeHref,
   roleLabel,
   items,
@@ -18,9 +21,12 @@ export function BackofficeShell({
   identityLabel,
   identity,
   demoNote,
+  themeLabels,
+  topbarExtra,
   children,
 }: {
   tone: "dark" | "light";
+  locale: Locale;
   homeHref: string;
   roleLabel: string;
   items: NavItem[];
@@ -29,6 +35,8 @@ export function BackofficeShell({
   identityLabel: string;
   identity: string;
   demoNote: string;
+  themeLabels: { light: string; dark: string; system: string };
+  topbarExtra?: ReactNode;
   children: ReactNode;
 }) {
   const dark = tone === "dark";
@@ -88,9 +96,13 @@ export function BackofficeShell({
 
       {/* Content */}
       <div className="min-w-0 flex-1">
-        <div className="border-b border-amber-200 bg-amber-50 px-4 py-2 text-center text-xs font-medium text-amber-800 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-300">
-          {demoNote}
-        </div>
+        <Topbar
+          locale={locale}
+          demoLabel={demoNote}
+          identity={identity}
+          themeLabels={themeLabels}
+          extra={topbarExtra}
+        />
         {/* Mobile nav */}
         <div
           className={`p-3 lg:hidden ${

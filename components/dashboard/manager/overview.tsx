@@ -9,8 +9,10 @@ import { cityName } from "@/lib/data/geo";
 import { formatDate } from "@/lib/format";
 import { Button, Card, Stat } from "@/components/ui";
 import { CheckIcon, ShieldIcon } from "@/components/icons";
+import { useToast } from "@/components/toast";
 
 export function ManagerOverview({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+  const { push } = useToast();
   const [companies, setCompanies] = useState<Company[]>(seedCompanies);
   const flagged = offers.filter((o) => o.flagged && o.status === "active");
 
@@ -22,6 +24,7 @@ export function ManagerOverview({ locale, dict }: { locale: Locale; dict: Dictio
 
   function setStatus(id: string, to: CompanyStatus) {
     setCompanies((prev) => prev.map((c) => (c.id === id ? { ...c, status: to } : c)));
+    push(to === "validated" ? dict.toast.carrierValidated : dict.toast.carrierRejected);
   }
 
   return (

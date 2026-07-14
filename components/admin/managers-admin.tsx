@@ -6,9 +6,11 @@ import type { Manager } from "@/lib/domain/types";
 import { companies, managers as seedManagers } from "@/lib/data/mock";
 import { Button, Card, Field, inputClass } from "@/components/ui";
 import { ShieldIcon } from "@/components/icons";
+import { useToast } from "@/components/toast";
 
 /** Admin §3.1: create, suspend or delete Manager accounts. */
 export function ManagersAdmin({ dict }: { dict: Dictionary }) {
+  const { push } = useToast();
   const [managers, setManagers] = useState<Manager[]>(seedManagers);
   const [showForm, setShowForm] = useState(false);
   const [name, setName] = useState("");
@@ -23,6 +25,7 @@ export function ManagersAdmin({ dict }: { dict: Dictionary }) {
     setName("");
     setEmail("");
     setShowForm(false);
+    push(dict.toast.managerCreated);
   }
 
   return (
@@ -77,12 +80,12 @@ export function ManagersAdmin({ dict }: { dict: Dictionary }) {
                   />
                   {m.name}
                   {!m.active ? (
-                    <span className="rounded-full bg-red-50 px-2 py-0.5 text-[11px] font-medium text-red-600 ring-1 ring-inset ring-red-200">
+                    <span className="rounded-full bg-red-50 px-2 py-0.5 text-[11px] font-medium text-red-600 ring-1 ring-inset ring-red-200 dark:bg-red-950 dark:text-red-300 dark:ring-red-900">
                       {dict.status.suspended}
                     </span>
                   ) : null}
                 </p>
-                <p className="mt-0.5 text-sm text-slate-400">{m.email}</p>
+                <p className="mt-0.5 text-sm text-slate-400 dark:text-slate-500">{m.email}</p>
               </div>
               <div className="flex items-center gap-5">
                 <p className="text-sm text-slate-500 dark:text-slate-400">
@@ -94,11 +97,12 @@ export function ManagersAdmin({ dict }: { dict: Dictionary }) {
                     <Button
                       size="sm"
                       variant="outline"
-                      onClick={() =>
+                      onClick={() => {
                         setManagers((prev) =>
                           prev.map((x) => (x.id === m.id ? { ...x, active: false } : x)),
-                        )
-                      }
+                        );
+                        push(dict.toast.managerSuspended);
+                      }}
                     >
                       {dict.managerDash.suspend}
                     </Button>
@@ -106,11 +110,12 @@ export function ManagersAdmin({ dict }: { dict: Dictionary }) {
                     <Button
                       size="sm"
                       variant="accent"
-                      onClick={() =>
+                      onClick={() => {
                         setManagers((prev) =>
                           prev.map((x) => (x.id === m.id ? { ...x, active: true } : x)),
-                        )
-                      }
+                        );
+                        push(dict.toast.managerReactivated);
+                      }}
                     >
                       {dict.managerDash.reactivate}
                     </Button>
@@ -120,9 +125,10 @@ export function ManagersAdmin({ dict }: { dict: Dictionary }) {
                     variant="danger"
                     disabled={portfolio > 0}
                     title={portfolio > 0 ? `${portfolio} ${dict.adminDash.companiesCount}` : undefined}
-                    onClick={() =>
-                      setManagers((prev) => prev.filter((x) => x.id !== m.id))
-                    }
+                    onClick={() => {
+                      setManagers((prev) => prev.filter((x) => x.id !== m.id));
+                      push(dict.toast.managerDeleted, "info");
+                    }}
                   >
                     {dict.companyDash.delete}
                   </Button>

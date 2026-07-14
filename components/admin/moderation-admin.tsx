@@ -9,6 +9,7 @@ import { cityName } from "@/lib/data/geo";
 import { formatDate } from "@/lib/format";
 import { Button, Card, OfferStatusBadge, inputClass } from "@/components/ui";
 import { RouteLine } from "@/components/offers/offer-card";
+import { useToast } from "@/components/toast";
 
 const filterableStatuses: OfferStatus[] = [
   "active",
@@ -23,6 +24,7 @@ const filterableStatuses: OfferStatus[] = [
  * last-resort moderation (suspend / reinstate / delete).
  */
 export function ModerationAdmin({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+  const { push } = useToast();
   const [offers, setOffers] = useState<Offer[]>(
     seedOffers.filter((o) => o.status !== "draft"),
   );
@@ -38,6 +40,7 @@ export function ModerationAdmin({ locale, dict }: { locale: Locale; dict: Dictio
 
   function setStatus(id: string, status: OfferStatus) {
     setOffers((prev) => prev.map((o) => (o.id === id ? { ...o, status } : o)));
+    push(status === "suspended" ? dict.toast.moderationSuspended : dict.toast.moderationReinstated);
   }
 
   return (
@@ -96,16 +99,16 @@ export function ModerationAdmin({ locale, dict }: { locale: Locale; dict: Dictio
                   <RouteLine
                     departure={cityName(o.departureCityId)}
                     arrival={cityName(o.arrivalCityId)}
-                    className="font-medium text-brand-950"
+                    className="font-medium text-brand-950 dark:text-white"
                   />
                   {o.flagged ? (
-                    <p className="mt-1 text-xs text-amber-700">
+                    <p className="mt-1 text-xs text-amber-700 dark:text-amber-400">
                       ⚠ {dict.managerDash.flagReason}: {o.flagged.reason}
                     </p>
                   ) : null}
                 </td>
-                <td className="px-4 py-3 text-slate-500">{companyName(o.companyId)}</td>
-                <td className="whitespace-nowrap px-4 py-3 text-slate-500">
+                <td className="px-4 py-3 text-slate-500 dark:text-slate-400">{companyName(o.companyId)}</td>
+                <td className="whitespace-nowrap px-4 py-3 text-slate-500 dark:text-slate-400">
                   {formatDate(o.availableFrom, locale)}
                 </td>
                 <td className="px-4 py-3">
@@ -126,7 +129,10 @@ export function ModerationAdmin({ locale, dict }: { locale: Locale; dict: Dictio
                     <Button
                       size="sm"
                       variant="danger"
-                      onClick={() => setOffers((prev) => prev.filter((x) => x.id !== o.id))}
+                      onClick={() => {
+                        setOffers((prev) => prev.filter((x) => x.id !== o.id));
+                        push(dict.toast.moderationDeleted, "info");
+                      }}
                     >
                       {dict.adminUI.deleteOffer}
                     </Button>

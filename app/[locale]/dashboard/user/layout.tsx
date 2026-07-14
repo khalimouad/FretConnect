@@ -20,6 +20,8 @@ export default async function UserSpaceLayout({
   return (
     <BackofficeShell
       tone="light"
+      locale={locale}
+      themeLabels={dict.theme}
       homeHref={base}
       roleLabel={dict.nav.spaceUser}
       items={[

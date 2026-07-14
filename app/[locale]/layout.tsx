@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { isLocale, localeMeta, locales } from "@/lib/i18n/config";
+import { ToastProvider } from "@/components/toast";
 import "../globals.css";
 
 const inter = Inter({
@@ -43,7 +44,9 @@ export default async function LocaleLayout({
           }}
         />
       </head>
-      <body className="font-sans">{children}</body>
+      <body className="font-sans">
+        <ToastProvider>{children}</ToastProvider>
+      </body>
     </html>
   );
 }
