@@ -10,6 +10,7 @@ import { OriginalPriceNote } from "@/components/currency/original-note";
 import { OfferCard, RouteLine } from "@/components/offers/offer-card";
 import { ContactPanel } from "@/components/offers/contact-panel";
 import { RouteMap } from "@/components/map/route-map";
+import { SocialContact } from "@/components/offers/social-contact";
 import { Card, OfferStatusBadge } from "@/components/ui";
 import {
   CalendarIcon,
@@ -208,6 +209,17 @@ export default async function OfferPage({
             <p className="mt-3 text-xs leading-relaxed text-slate-400 dark:text-slate-500">
               {dict.offer.contactHint}
             </p>
+            {offer.company.whatsapp || offer.company.telegram ? (
+              <div className="mt-4 border-t border-slate-100 pt-4 dark:border-slate-800">
+                <SocialContact
+                  whatsapp={offer.company.whatsapp}
+                  telegram={offer.company.telegram}
+                  dict={dict}
+                  route={`${cityName(offer.departureCityId)} → ${cityName(offer.arrivalCityId)}`}
+                  date={formatDate(offer.availableFrom, locale)}
+                />
+              </div>
+            ) : null}
           </Card>
 
           <Card className="p-6">

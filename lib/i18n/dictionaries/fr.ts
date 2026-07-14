@@ -137,6 +137,9 @@ const fr: Dictionary = {
     similar: "Offres similaires",
     backToSearch: "Retour à la recherche",
     loginToContact: "Connectez-vous pour accepter ou contacter le transporteur",
+    contactWhatsApp: "WhatsApp",
+    contactTelegram: "Telegram",
+    whatsappMessage: "Bonjour, j'ai des marchandises à expédier sur le trajet {route} ({date}). Est-ce toujours disponible ?",
   },
   status: {
     draft: "Brouillon",

@@ -92,6 +92,8 @@ export interface Company {
   ice: string; // Moroccan company identifier
   phone: string;
   email: string;
+  whatsapp?: string; // E.164, e.g. "+212661234567"
+  telegram?: string; // handle without the leading @
   fleetSize: number;
   status: CompanyStatus;
   managerId: string;

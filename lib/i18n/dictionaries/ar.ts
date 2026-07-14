@@ -133,6 +133,9 @@ const ar: Dictionary = {
     similar: "عروض مشابهة",
     backToSearch: "العودة إلى البحث",
     loginToContact: "سجّل الدخول لقبول العرض أو مراسلة الناقل",
+    contactWhatsApp: "واتساب",
+    contactTelegram: "تيليجرام",
+    whatsappMessage: "مرحباً، لدي بضائع للشحن على مسار {route} ({date}). هل ما زال متاحاً؟",
   },
   status: {
     draft: "مسودة",

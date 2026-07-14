@@ -133,6 +133,9 @@ const en = {
     similar: "Similar offers",
     backToSearch: "Back to search",
     loginToContact: "Log in to accept or message the carrier",
+    contactWhatsApp: "WhatsApp",
+    contactTelegram: "Telegram",
+    whatsappMessage: "Hello, I have goods to ship on the {route} route ({date}). Is this still available?",
   },
   status: {
     draft: "Draft",

@@ -136,6 +136,9 @@ const es: Dictionary = {
     similar: "Ofertas similares",
     backToSearch: "Volver a la búsqueda",
     loginToContact: "Inicie sesión para aceptar o escribir al transportista",
+    contactWhatsApp: "WhatsApp",
+    contactTelegram: "Telegram",
+    whatsappMessage: "Hola, tengo mercancía para enviar en la ruta {route} ({date}). ¿Sigue disponible?",
   },
   status: {
     draft: "Borrador",

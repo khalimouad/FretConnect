@@ -159,6 +159,14 @@ export function RegisterForm({
             <Field label={dict.auth.fleetSize}>
               <input type="number" min={1} required className={inputClass} />
             </Field>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Field label={dict.settingsUI.whatsappNumber} hint="+212 6XX XXX XXX">
+                <input type="tel" dir="ltr" className={inputClass} placeholder="+212 6…" />
+              </Field>
+              <Field label={dict.settingsUI.telegramHandle} hint="@username">
+                <input type="text" dir="ltr" className={inputClass} placeholder="@username" />
+              </Field>
+            </div>
 
             <fieldset>
               <legend className="mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">
