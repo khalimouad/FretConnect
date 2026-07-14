@@ -248,6 +248,15 @@ export function WhatsAppIcon(props: IconProps) {
   );
 }
 
+export function PackageIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="m3.5 8 8.5-4.5L20.5 8v8l-8.5 4.5L3.5 16z" />
+      <path d="M3.5 8 12 12.5m0 0L20.5 8M12 12.5V21" />
+    </svg>
+  );
+}
+
 export function TelegramIcon(props: IconProps) {
   return (
     <svg {...base({ ...props, strokeWidth: 0, fill: "currentColor" })}>

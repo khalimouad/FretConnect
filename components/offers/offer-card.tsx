@@ -7,6 +7,7 @@ import type { Dictionary } from "@/lib/i18n";
 import { PriceTag } from "@/components/currency/price-tag";
 import {
   CalendarIcon,
+  PackageIcon,
   RouteArrowIcon,
   ShieldIcon,
   TruckIcon,
@@ -69,6 +70,10 @@ export function OfferCard({
         <span className="inline-flex items-center gap-1.5">
           <TruckIcon width={16} height={16} className="text-slate-400 dark:text-slate-500" />
           {dict.vehicles[offer.vehicleType]}
+        </span>
+        <span className="inline-flex items-center gap-1.5">
+          <PackageIcon width={16} height={16} className="text-slate-400 dark:text-slate-500" />
+          {dict.cargo[offer.cargoType]}
         </span>
         <span className="inline-flex items-center gap-1.5">
           <WeightIcon width={16} height={16} className="text-slate-400 dark:text-slate-500" />

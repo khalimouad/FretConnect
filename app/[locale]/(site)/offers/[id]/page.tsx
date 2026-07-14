@@ -15,6 +15,7 @@ import { Card, OfferStatusBadge } from "@/components/ui";
 import {
   CalendarIcon,
   MapPinIcon,
+  PackageIcon,
   ShieldIcon,
   TruckIcon,
   WeightIcon,
@@ -56,6 +57,11 @@ export default async function OfferPage({
       value: dict.vehicles[offer.vehicleType],
     },
     {
+      icon: PackageIcon,
+      label: dict.offer.cargo,
+      value: dict.cargo[offer.cargoType],
+    },
+    {
       icon: WeightIcon,
       label: dict.offer.capacity,
       value:
@@ -94,7 +100,7 @@ export default async function OfferPage({
               <OfferStatusBadge status={offer.status} dict={dict} />
             </div>
 
-            <dl className="mt-6 grid gap-4 sm:grid-cols-3">
+            <dl className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {facts.map((f) => (
                 <div key={f.label} className="rounded-lg bg-slate-50 p-4 dark:bg-slate-800/60">
                   <dt className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">

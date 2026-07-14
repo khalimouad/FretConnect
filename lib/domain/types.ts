@@ -37,6 +37,16 @@ export type VehicleType =
   | "flatbed"
   | "tanker";
 
+export type CargoType =
+  | "general"
+  | "fragile"
+  | "perishable"
+  | "construction"
+  | "vehicles"
+  | "livestock"
+  | "hazardous"
+  | "furniture";
+
 export type ZoneStatus = "active" | "planned";
 
 export interface Country {
@@ -75,6 +85,7 @@ export interface Offer {
   availableFrom: string; // ISO date
   availableTo?: string; // optional range end
   vehicleType: VehicleType;
+  cargoType: CargoType;
   tonnage: number; // tons
   volume?: number; // m³
   price?: Money; // absent = on request / negotiable

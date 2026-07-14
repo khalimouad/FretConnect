@@ -3,7 +3,7 @@
 import { useState } from "react";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/config";
-import type { Offer, OfferStatus, VehicleType } from "@/lib/domain/types";
+import type { CargoType, Offer, OfferStatus, VehicleType } from "@/lib/domain/types";
 import { offerActions } from "@/lib/domain/workflow";
 import { cities, cityName } from "@/lib/data/geo";
 import { offers as seedOffers } from "@/lib/data/mock";
@@ -32,6 +32,17 @@ const vehicleTypes: VehicleType[] = [
   "refrigerated",
   "flatbed",
   "tanker",
+];
+
+const cargoTypes: CargoType[] = [
+  "general",
+  "fragile",
+  "perishable",
+  "construction",
+  "vehicles",
+  "livestock",
+  "hazardous",
+  "furniture",
 ];
 
 export function CompanyOffersPage({ locale, dict }: { locale: Locale; dict: Dictionary }) {
@@ -83,6 +94,15 @@ export function CompanyOffersPage({ locale, dict }: { locale: Locale; dict: Dict
       filterValue: (o) => o.vehicleType,
       render: (o) => (
         <span className="text-slate-500 dark:text-slate-400">{dict.vehicles[o.vehicleType]}</span>
+      ),
+    },
+    {
+      key: "cargo",
+      label: dict.offer.cargo,
+      filterOptions: cargoTypes.map((c) => ({ value: c, label: dict.cargo[c] })),
+      filterValue: (o) => o.cargoType,
+      render: (o) => (
+        <span className="text-slate-500 dark:text-slate-400">{dict.cargo[o.cargoType]}</span>
       ),
     },
     {
@@ -180,6 +200,7 @@ function OfferForm({
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [vehicle, setVehicle] = useState<VehicleType>("truck");
+  const [cargo, setCargo] = useState<CargoType>("general");
   const [tonnage, setTonnage] = useState("10");
   const [volume, setVolume] = useState("");
   const [price, setPrice] = useState("");
@@ -193,6 +214,7 @@ function OfferForm({
       availableFrom: from,
       availableTo: to || undefined,
       vehicleType: vehicle,
+      cargoType: cargo,
       tonnage: Number(tonnage),
       volume: volume ? Number(volume) : undefined,
       price: price ? { amount: Number(price), currency: "MAD" } : undefined,
@@ -255,6 +277,20 @@ function OfferForm({
           >
             {vehicleTypes.map((v) => (
               <option key={v} value={v}>{dict.vehicles[v]}</option>
+            ))}
+          </select>
+        </label>
+        <label className="block">
+          <span className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
+            {dict.companyDash.fCargo}
+          </span>
+          <select
+            value={cargo}
+            onChange={(e) => setCargo(e.target.value as CargoType)}
+            className={inputClass}
+          >
+            {cargoTypes.map((c) => (
+              <option key={c} value={c}>{dict.cargo[c]}</option>
             ))}
           </select>
         </label>

@@ -3,7 +3,7 @@ import { getDictionary } from "@/lib/i18n";
 import { isLocale } from "@/lib/i18n/config";
 import { searchOffers, type SearchFilters } from "@/lib/data/repository";
 import { cities } from "@/lib/data/geo";
-import type { VehicleType } from "@/lib/domain/types";
+import type { CargoType, VehicleType } from "@/lib/domain/types";
 import { AlertButton } from "@/components/offers/alert-button";
 import { SearchResultsView } from "@/components/search/results-view";
 import { Button, inputClass } from "@/components/ui";
@@ -17,6 +17,17 @@ const vehicleTypes: VehicleType[] = [
   "refrigerated",
   "flatbed",
   "tanker",
+];
+
+const cargoTypes: CargoType[] = [
+  "general",
+  "fragile",
+  "perishable",
+  "construction",
+  "vehicles",
+  "livestock",
+  "hazardous",
+  "furniture",
 ];
 
 type Search = { [key: string]: string | string[] | undefined };
@@ -42,6 +53,7 @@ export default async function SearchPage({
     arrival: str(sp.arrival),
     dateFrom: str(sp.date),
     vehicle: str(sp.vehicle) as VehicleType | undefined,
+    cargo: str(sp.cargo) as CargoType | undefined,
     minTonnage: str(sp.tonnage) ? Number(str(sp.tonnage)) : undefined,
     maxPrice: str(sp.price) ? Number(str(sp.price)) : undefined,
     sort: (str(sp.sort) as SearchFilters["sort"]) ?? "date",
@@ -102,6 +114,19 @@ export default async function SearchPage({
             {vehicleTypes.map((v) => (
               <option key={v} value={v}>
                 {dict.vehicles[v]}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="block">
+          <span className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
+            {dict.search.cargoType}
+          </span>
+          <select name="cargo" defaultValue={filters.cargo ?? ""} className={inputClass}>
+            <option value="">{dict.search.anyCargo}</option>
+            {cargoTypes.map((c) => (
+              <option key={c} value={c}>
+                {dict.cargo[c]}
               </option>
             ))}
           </select>

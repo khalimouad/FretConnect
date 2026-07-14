@@ -1,4 +1,4 @@
-import type { Company, Offer, VehicleType } from "../domain/types";
+import type { CargoType, Company, Offer, VehicleType } from "../domain/types";
 import { effectiveStatus, isPubliclyVisible } from "../domain/workflow";
 import { acceptances, companies, offers } from "./mock";
 
@@ -16,6 +16,7 @@ export interface SearchFilters {
   arrival?: string;
   dateFrom?: string;
   vehicle?: VehicleType;
+  cargo?: CargoType;
   minTonnage?: number;
   maxPrice?: number;
   sort?: "date" | "price" | "capacity";
@@ -57,6 +58,8 @@ export async function searchOffers(
     );
   if (filters.vehicle)
     results = results.filter((o) => o.vehicleType === filters.vehicle);
+  if (filters.cargo)
+    results = results.filter((o) => o.cargoType === filters.cargo);
   if (filters.minTonnage !== undefined)
     results = results.filter((o) => o.tonnage >= filters.minTonnage!);
   if (filters.maxPrice !== undefined)
