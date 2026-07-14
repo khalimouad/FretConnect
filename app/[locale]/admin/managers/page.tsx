@@ -14,7 +14,7 @@ export default async function AdminManagersPage({
 
   return (
     <>
-      <h1 className="text-2xl font-bold tracking-tight text-brand-950">
+      <h1 className="text-2xl font-bold tracking-tight text-brand-950 dark:text-white">
         {dict.adminDash.managersTitle}
       </h1>
       <div className="mt-6">

@@ -26,8 +26,8 @@ export function ManagerOverview({ locale, dict }: { locale: Locale; dict: Dictio
 
   return (
     <>
-      <h1 className="text-2xl font-bold tracking-tight text-brand-950">{dict.dash.overview}</h1>
-      <p className="mt-1 text-sm text-slate-500">{dict.managerDash.subtitle}</p>
+      <h1 className="text-2xl font-bold tracking-tight text-brand-950 dark:text-white">{dict.dash.overview}</h1>
+      <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{dict.managerDash.subtitle}</p>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Stat
@@ -44,10 +44,10 @@ export function ManagerOverview({ locale, dict }: { locale: Locale; dict: Dictio
         <Stat label={dict.managerDash.statFlagged} value={String(flagged.length)} tone="accent" />
       </div>
 
-      <h2 className="mt-10 text-lg font-bold text-brand-950">{dict.managerDash.pendingTitle}</h2>
+      <h2 className="mt-10 text-lg font-bold text-brand-950 dark:text-white">{dict.managerDash.pendingTitle}</h2>
       <div className="mt-4">
         {pending.length === 0 ? (
-          <Card className="p-6 text-center text-sm text-slate-500">
+          <Card className="p-6 text-center text-sm text-slate-500 dark:text-slate-400">
             {dict.managerDash.noPending}
           </Card>
         ) : (
@@ -55,18 +55,18 @@ export function ManagerOverview({ locale, dict }: { locale: Locale; dict: Dictio
             {pending.map((c) => (
               <Card key={c.id} className="flex flex-wrap items-center justify-between gap-4 p-5">
                 <div>
-                  <p className="flex items-center gap-2 font-semibold text-brand-950">
-                    <ShieldIcon width={16} height={16} className="text-slate-400" />
+                  <p className="flex items-center gap-2 font-semibold text-brand-950 dark:text-white">
+                    <ShieldIcon width={16} height={16} className="text-slate-400 dark:text-slate-500" />
                     {c.name}
-                    <span className="text-sm font-normal text-slate-400">
+                    <span className="text-sm font-normal text-slate-400 dark:text-slate-500">
                       · {cityName(c.cityId)}
                     </span>
                   </p>
-                  <p className="mt-1 text-sm text-slate-500">
+                  <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                     {dict.managerDash.docs}: ICE <span dir="ltr">{c.ice}</span> ·{" "}
                     <span dir="ltr">{c.phone}</span> · {c.email}
                   </p>
-                  <p className="mt-0.5 text-xs text-slate-400">
+                  <p className="mt-0.5 text-xs text-slate-400 dark:text-slate-500">
                     {formatDate(c.registeredAt, locale)} · {dict.auth.fleetSize}: {c.fleetSize}
                   </p>
                 </div>

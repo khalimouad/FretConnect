@@ -20,7 +20,7 @@ export function ManagerCompaniesPage({ locale, dict }: { locale: Locale; dict: D
 
   return (
     <>
-      <h1 className="text-2xl font-bold tracking-tight text-brand-950">
+      <h1 className="text-2xl font-bold tracking-tight text-brand-950 dark:text-white">
         {dict.managerDash.companiesTitle}
       </h1>
 
@@ -39,8 +39,8 @@ export function ManagerCompaniesPage({ locale, dict }: { locale: Locale; dict: D
             {companies.map((c) => (
               <tr key={c.id} className="border-b border-slate-100 last:border-0">
                 <td className="px-4 py-3">
-                  <p className="font-medium text-brand-950">{c.name}</p>
-                  <p className="text-xs text-slate-400">{cityName(c.cityId)}</p>
+                  <p className="font-medium text-brand-950 dark:text-white">{c.name}</p>
+                  <p className="text-xs text-slate-400 dark:text-slate-500">{cityName(c.cityId)}</p>
                 </td>
                 <td className="px-4 py-3">
                   <CompanyStatusBadge status={c.status} dict={dict} />
@@ -58,7 +58,7 @@ export function ManagerCompaniesPage({ locale, dict }: { locale: Locale; dict: D
                     {c.status === "validated" ? (
                       <button
                         onClick={() => setStatus(c.id, "suspended")}
-                        className="cursor-pointer rounded-md border border-slate-200 px-2 py-1 text-xs font-medium text-slate-600 hover:bg-slate-50"
+                        className="cursor-pointer rounded-md border border-slate-200 px-2 py-1 text-xs font-medium text-slate-600 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
                       >
                         {dict.managerDash.suspend}
                       </button>
@@ -66,7 +66,7 @@ export function ManagerCompaniesPage({ locale, dict }: { locale: Locale; dict: D
                     {c.status === "suspended" ? (
                       <button
                         onClick={() => setStatus(c.id, "validated")}
-                        className="cursor-pointer rounded-md border border-accent-300 bg-accent-50 px-2 py-1 text-xs font-medium text-accent-700 hover:bg-accent-100"
+                        className="cursor-pointer rounded-md border border-accent-300 bg-accent-50 px-2 py-1 text-xs font-medium text-accent-700 hover:bg-accent-100 dark:border-accent-800 dark:bg-accent-950 dark:hover:bg-accent-900"
                       >
                         {dict.managerDash.reactivate}
                       </button>
@@ -74,7 +74,7 @@ export function ManagerCompaniesPage({ locale, dict }: { locale: Locale; dict: D
                     {c.status !== "closed" ? (
                       <button
                         onClick={() => setStatus(c.id, "closed")}
-                        className="cursor-pointer rounded-md border border-red-200 px-2 py-1 text-xs font-medium text-red-600 hover:bg-red-50"
+                        className="cursor-pointer rounded-md border border-red-200 px-2 py-1 text-xs font-medium text-red-600 hover:bg-red-50 dark:border-red-900 dark:text-red-400 dark:hover:bg-red-950"
                       >
                         {dict.managerDash.close}
                       </button>

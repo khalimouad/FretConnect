@@ -58,10 +58,10 @@ export function CompanyOffersPage({ locale, dict }: { locale: Locale; dict: Dict
     <>
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-brand-950">
+          <h1 className="text-2xl font-bold tracking-tight text-brand-950 dark:text-white">
             {dict.companyDash.offersTitle}
           </h1>
-          <p className="mt-1 text-sm text-slate-500">{dict.companyDash.expiresAuto}</p>
+          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{dict.companyDash.expiresAuto}</p>
         </div>
         <Button size="sm" onClick={() => setShowForm((v) => !v)}>
           <TruckIcon width={15} height={15} />
@@ -175,7 +175,7 @@ function OfferForm({
 
   return (
     <Card className="mt-6 p-5">
-      <p className="mb-4 font-semibold text-brand-950">{dict.companyDash.formTitle}</p>
+      <p className="mb-4 font-semibold text-brand-950 dark:text-white">{dict.companyDash.formTitle}</p>
       <form
         className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
         onSubmit={(e) => {
@@ -184,7 +184,7 @@ function OfferForm({
         }}
       >
         <label className="block">
-          <span className="mb-1.5 block text-sm font-medium text-slate-700">
+          <span className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
             {dict.companyDash.fDeparture}
           </span>
           <select value={dep} onChange={(e) => setDep(e.target.value)} className={inputClass}>
@@ -194,7 +194,7 @@ function OfferForm({
           </select>
         </label>
         <label className="block">
-          <span className="mb-1.5 block text-sm font-medium text-slate-700">
+          <span className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
             {dict.companyDash.fArrival}
           </span>
           <select value={arr} onChange={(e) => setArr(e.target.value)} className={inputClass}>
@@ -204,19 +204,19 @@ function OfferForm({
           </select>
         </label>
         <label className="block">
-          <span className="mb-1.5 block text-sm font-medium text-slate-700">
+          <span className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
             {dict.companyDash.fDateStart}
           </span>
           <input type="date" required value={from} onChange={(e) => setFrom(e.target.value)} className={inputClass} />
         </label>
         <label className="block">
-          <span className="mb-1.5 block text-sm font-medium text-slate-700">
+          <span className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
             {dict.companyDash.fDateEnd}
           </span>
           <input type="date" value={to} onChange={(e) => setTo(e.target.value)} className={inputClass} />
         </label>
         <label className="block">
-          <span className="mb-1.5 block text-sm font-medium text-slate-700">
+          <span className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
             {dict.companyDash.fVehicle}
           </span>
           <select
@@ -230,7 +230,7 @@ function OfferForm({
           </select>
         </label>
         <label className="block">
-          <span className="mb-1.5 block text-sm font-medium text-slate-700">
+          <span className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
             {dict.companyDash.fTonnage}
           </span>
           <input
@@ -244,7 +244,7 @@ function OfferForm({
           />
         </label>
         <label className="block">
-          <span className="mb-1.5 block text-sm font-medium text-slate-700">
+          <span className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
             {dict.companyDash.fVolume}
           </span>
           <input
@@ -256,7 +256,7 @@ function OfferForm({
           />
         </label>
         <label className="block">
-          <span className="mb-1.5 block text-sm font-medium text-slate-700">
+          <span className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
             {dict.companyDash.fPrice}
           </span>
           <input
@@ -268,7 +268,7 @@ function OfferForm({
             className={inputClass}
             aria-describedby="price-hint"
           />
-          <span id="price-hint" className="mt-1 block text-xs text-slate-400">
+          <span id="price-hint" className="mt-1 block text-xs text-slate-400 dark:text-slate-500">
             {dict.companyDash.fPriceHint}
           </span>
         </label>

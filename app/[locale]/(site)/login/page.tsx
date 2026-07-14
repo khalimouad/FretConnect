@@ -22,10 +22,10 @@ export default async function LoginPage({
 
   return (
     <div className="mx-auto flex max-w-md flex-col px-4 py-16">
-      <h1 className="text-3xl font-bold tracking-tight text-brand-950">
+      <h1 className="text-3xl font-bold tracking-tight text-brand-950 dark:text-white">
         {dict.auth.loginTitle}
       </h1>
-      <p className="mt-1 text-slate-500">{dict.auth.loginSubtitle}</p>
+      <p className="mt-1 text-slate-500 dark:text-slate-400">{dict.auth.loginSubtitle}</p>
 
       <Card className="mt-8 p-6">
         <form className="space-y-4" action={`/${locale}/dashboard/user`}>
@@ -36,7 +36,7 @@ export default async function LoginPage({
             <input type="password" className={inputClass} autoComplete="current-password" />
           </Field>
           <div className="flex items-center justify-between">
-            <span className="text-sm text-brand-700 hover:underline">
+            <span className="text-sm text-brand-700 hover:underline dark:text-brand-300">
               {dict.auth.forgotPassword}
             </span>
           </div>
@@ -44,16 +44,16 @@ export default async function LoginPage({
             {dict.common.login}
           </Button>
         </form>
-        <p className="mt-4 text-center text-sm text-slate-500">
+        <p className="mt-4 text-center text-sm text-slate-500 dark:text-slate-400">
           {dict.auth.noAccount}{" "}
-          <Link href={`/${locale}/register`} className="font-semibold text-accent-600 hover:underline">
+          <Link href={`/${locale}/register`} className="font-semibold text-accent-600 hover:underline dark:text-accent-400">
             {dict.common.register}
           </Link>
         </p>
       </Card>
 
       <div className="mt-8">
-        <p className="text-center text-xs font-semibold uppercase tracking-wide text-slate-400">
+        <p className="text-center text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500">
           {dict.auth.demoHint}
         </p>
         <div className="mt-3 grid grid-cols-2 gap-2">
@@ -61,7 +61,7 @@ export default async function LoginPage({
             <Link
               key={s.href}
               href={s.href}
-              className="rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-center text-sm font-medium text-slate-700 shadow-card hover:border-brand-300 hover:text-brand-900"
+              className="rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-center text-sm font-medium text-slate-700 shadow-card hover:border-brand-300 hover:text-brand-900 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:shadow-none dark:hover:border-brand-700 dark:hover:text-brand-300"
             >
               {s.label}
             </Link>

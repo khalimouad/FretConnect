@@ -14,10 +14,10 @@ export default async function AdminModerationPage({
 
   return (
     <>
-      <h1 className="text-2xl font-bold tracking-tight text-brand-950">
+      <h1 className="text-2xl font-bold tracking-tight text-brand-950 dark:text-white">
         {dict.dash.moderation}
       </h1>
-      <p className="mt-1 text-sm text-slate-500">{dict.adminUI.allOffers}</p>
+      <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{dict.adminUI.allOffers}</p>
       <div className="mt-6">
         <ModerationAdmin locale={locale} dict={dict} />
       </div>

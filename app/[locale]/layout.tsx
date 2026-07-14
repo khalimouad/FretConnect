@@ -35,6 +35,14 @@ export default async function LocaleLayout({
 
   return (
     <html lang={meta.htmlLang} dir={meta.dir} className={inter.variable}>
+      <head>
+        {/* Stamp the theme before paint to avoid a light/dark flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("theme");var d=t==="dark"||((!t||t==="system")&&window.matchMedia("(prefers-color-scheme: dark)").matches);document.documentElement.setAttribute("data-theme",d?"dark":"light");}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body className="font-sans">{children}</body>
     </html>
   );

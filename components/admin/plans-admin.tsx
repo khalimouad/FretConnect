@@ -27,7 +27,7 @@ export function PlansAdmin({ locale, dict }: { locale: Locale; dict: Dictionary 
         return (
           <Card key={plan.id} className="p-6">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-bold text-brand-950">{dict.plans[plan.nameKey]}</h2>
+              <h2 className="text-lg font-bold text-brand-950 dark:text-white">{dict.plans[plan.nameKey]}</h2>
               <span className="rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-medium text-brand-700 ring-1 ring-inset ring-brand-200">
                 {subscribers} {dict.adminDash.companiesCount}
               </span>

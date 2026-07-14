@@ -51,7 +51,7 @@ export function UserAlertsPage({ dict }: { dict: Dictionary }) {
   return (
     <>
       <div className="flex flex-wrap items-end justify-between gap-4">
-        <h1 className="text-2xl font-bold tracking-tight text-brand-950">{dict.dash.alerts}</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-brand-950 dark:text-white">{dict.dash.alerts}</h1>
         <Button size="sm" onClick={() => setShowForm((v) => !v)}>
           <BellIcon width={15} height={15} />
           {dict.userDash.newAlert}
@@ -62,7 +62,7 @@ export function UserAlertsPage({ dict }: { dict: Dictionary }) {
         <Card className="mt-6 p-5">
           <form onSubmit={addAlert} className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <label className="block">
-              <span className="mb-1.5 block text-sm font-medium text-slate-700">
+              <span className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 {dict.search.departureCity}
               </span>
               <select value={dep} onChange={(e) => setDep(e.target.value)} className={inputClass}>
@@ -73,7 +73,7 @@ export function UserAlertsPage({ dict }: { dict: Dictionary }) {
               </select>
             </label>
             <label className="block">
-              <span className="mb-1.5 block text-sm font-medium text-slate-700">
+              <span className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 {dict.search.arrivalCity}
               </span>
               <select value={arr} onChange={(e) => setArr(e.target.value)} className={inputClass}>
@@ -84,7 +84,7 @@ export function UserAlertsPage({ dict }: { dict: Dictionary }) {
               </select>
             </label>
             <label className="block">
-              <span className="mb-1.5 block text-sm font-medium text-slate-700">
+              <span className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 {dict.userDash.alertVehicle}
               </span>
               <select value={veh} onChange={(e) => setVeh(e.target.value)} className={inputClass}>
@@ -95,15 +95,15 @@ export function UserAlertsPage({ dict }: { dict: Dictionary }) {
               </select>
             </label>
             <div>
-              <span className="mb-1.5 block text-sm font-medium text-slate-700">
+              <span className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 {dict.userDash.notifyBy}
               </span>
               <div className="flex items-center gap-4 py-2">
-                <label className="flex items-center gap-1.5 text-sm text-slate-600">
+                <label className="flex items-center gap-1.5 text-sm text-slate-600 dark:text-slate-300">
                   <input type="checkbox" checked={email} onChange={(e) => setEmail(e.target.checked)} />
                   {dict.userDash.notifEmail}
                 </label>
-                <label className="flex items-center gap-1.5 text-sm text-slate-600">
+                <label className="flex items-center gap-1.5 text-sm text-slate-600 dark:text-slate-300">
                   <input type="checkbox" checked={push} onChange={(e) => setPush(e.target.checked)} />
                   {dict.userDash.notifPush}
                 </label>
@@ -117,7 +117,7 @@ export function UserAlertsPage({ dict }: { dict: Dictionary }) {
       ) : null}
 
       {alerts.length === 0 ? (
-        <Card className="mt-6 p-8 text-center text-sm text-slate-500">{dict.userDash.noAlerts}</Card>
+        <Card className="mt-6 p-8 text-center text-sm text-slate-500 dark:text-slate-400">{dict.userDash.noAlerts}</Card>
       ) : (
         <div className="mt-6 grid gap-3 md:grid-cols-2">
           {alerts.map((a) => (
@@ -128,7 +128,7 @@ export function UserAlertsPage({ dict }: { dict: Dictionary }) {
                   arrival={a.arrivalCityId ? cityName(a.arrivalCityId) : dict.search.anyCity}
                   className="font-semibold text-brand-950"
                 />
-                <p className="mt-1 text-xs text-slate-400">
+                <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
                   {a.vehicleType ? `${dict.vehicles[a.vehicleType]} · ` : ""}
                   {a.channels.email ? dict.userDash.notifEmail : ""}
                   {a.channels.email && a.channels.push ? " + " : ""}
@@ -137,7 +137,7 @@ export function UserAlertsPage({ dict }: { dict: Dictionary }) {
               </div>
               <button
                 onClick={() => setAlerts((prev) => prev.filter((x) => x.id !== a.id))}
-                className="cursor-pointer rounded-lg border border-red-200 px-3 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50"
+                className="cursor-pointer rounded-lg border border-red-200 px-3 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50 dark:border-red-900 dark:text-red-400 dark:hover:bg-red-950"
               >
                 {dict.userDash.deleteAlert}
               </button>

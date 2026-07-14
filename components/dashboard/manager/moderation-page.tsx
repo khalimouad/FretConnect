@@ -15,13 +15,13 @@ export function ManagerModerationPage({ dict }: { dict: Dictionary }) {
 
   return (
     <>
-      <h1 className="text-2xl font-bold tracking-tight text-brand-950">
+      <h1 className="text-2xl font-bold tracking-tight text-brand-950 dark:text-white">
         {dict.managerDash.moderationTitle}
       </h1>
 
       <div className="mt-6">
         {flagged.length === 0 ? (
-          <Card className="p-6 text-center text-sm text-slate-500">
+          <Card className="p-6 text-center text-sm text-slate-500 dark:text-slate-400">
             {dict.managerDash.noFlagged}
           </Card>
         ) : (

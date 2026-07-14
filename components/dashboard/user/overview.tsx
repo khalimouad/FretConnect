@@ -5,8 +5,8 @@ import { Stat } from "@/components/ui";
 export function UserOverview({ dict }: { dict: Dictionary }) {
   return (
     <>
-      <h1 className="text-2xl font-bold tracking-tight text-brand-950">{dict.dash.overview}</h1>
-      <p className="mt-1 text-sm text-slate-500">{dict.userDash.subtitle}</p>
+      <h1 className="text-2xl font-bold tracking-tight text-brand-950 dark:text-white">{dict.dash.overview}</h1>
+      <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{dict.userDash.subtitle}</p>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-3">
         <Stat label={dict.userDash.activeAlerts} value={String(alerts.length)} tone="accent" />

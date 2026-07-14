@@ -13,14 +13,14 @@ export function CompanySubscriptionPage({ locale, dict }: { locale: Locale; dict
 
   return (
     <>
-      <h1 className="text-2xl font-bold tracking-tight text-brand-950">
+      <h1 className="text-2xl font-bold tracking-tight text-brand-950 dark:text-white">
         {dict.companyDash.subTitle}
       </h1>
 
       <Card className="mt-6 flex flex-wrap items-center justify-between gap-6 p-6">
         <div>
           <p className="text-sm text-slate-400">{dict.companyDash.planLabel}</p>
-          <p className="text-xl font-bold text-brand-950">
+          <p className="text-xl font-bold text-brand-950 dark:text-white">
             {dict.plans[plan.nameKey]}{" "}
             <span className="text-sm font-medium text-slate-400">
               · {formatMoney(plan.monthlyPrice, locale)}

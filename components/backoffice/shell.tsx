@@ -33,11 +33,13 @@ export function BackofficeShell({
 }) {
   const dark = tone === "dark";
   return (
-    <div className="flex min-h-screen bg-slate-100">
+    <div className="flex min-h-screen bg-slate-100 dark:bg-slate-950">
       {/* Sidebar */}
       <aside
         className={`sticky top-0 hidden h-screen w-64 shrink-0 flex-col p-4 lg:flex ${
-          dark ? "bg-brand-950" : "border-e border-slate-200 bg-white"
+          dark
+            ? "bg-brand-950"
+            : "border-e border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900"
         }`}
       >
         <Link href={homeHref} className="flex items-center gap-2 px-2 py-3">
@@ -51,14 +53,14 @@ export function BackofficeShell({
           <span>
             <span
               className={`block text-base font-bold leading-tight ${
-                dark ? "text-white" : "text-brand-950"
+                dark ? "text-white" : "text-brand-950 dark:text-white"
               }`}
             >
               Fret<span className="text-accent-400">Connect</span>
             </span>
             <span
               className={`block text-[11px] font-medium uppercase tracking-wide ${
-                dark ? "text-brand-300" : "text-slate-400"
+                dark ? "text-brand-300" : "text-slate-400 dark:text-slate-500"
               }`}
             >
               {roleLabel}
@@ -74,10 +76,10 @@ export function BackofficeShell({
             tone={tone}
           />
         </div>
-        <p className={`px-2 text-xs ${dark ? "text-brand-400" : "text-slate-400"}`}>
+        <p className={`px-2 text-xs ${dark ? "text-brand-400" : "text-slate-400 dark:text-slate-500"}`}>
           {identityLabel}
           <span
-            className={`block font-semibold ${dark ? "text-brand-200" : "text-slate-600"}`}
+            className={`block font-semibold ${dark ? "text-brand-200" : "text-slate-600 dark:text-slate-300"}`}
           >
             {identity}
           </span>
@@ -86,11 +88,17 @@ export function BackofficeShell({
 
       {/* Content */}
       <div className="min-w-0 flex-1">
-        <div className="border-b border-amber-200 bg-amber-50 px-4 py-2 text-center text-xs font-medium text-amber-800">
+        <div className="border-b border-amber-200 bg-amber-50 px-4 py-2 text-center text-xs font-medium text-amber-800 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-300">
           {demoNote}
         </div>
         {/* Mobile nav */}
-        <div className={`p-3 lg:hidden ${dark ? "bg-brand-950" : "border-b border-slate-200 bg-white"}`}>
+        <div
+          className={`p-3 lg:hidden ${
+            dark
+              ? "bg-brand-950"
+              : "border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900"
+          }`}
+        >
           <SidebarNav
             items={items}
             baseHref={homeHref}

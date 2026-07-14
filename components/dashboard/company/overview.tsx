@@ -32,8 +32,8 @@ export function CompanyOverview({ locale, dict }: { locale: Locale; dict: Dictio
 
   return (
     <>
-      <h1 className="text-2xl font-bold tracking-tight text-brand-950">{dict.dash.overview}</h1>
-      <p className="mt-1 text-sm text-slate-500">{dict.companyDash.subtitle}</p>
+      <h1 className="text-2xl font-bold tracking-tight text-brand-950 dark:text-white">{dict.dash.overview}</h1>
+      <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{dict.companyDash.subtitle}</p>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Stat label={dict.companyDash.statActive} value={String(active.length)} tone="accent" />
@@ -46,12 +46,12 @@ export function CompanyOverview({ locale, dict }: { locale: Locale; dict: Dictio
         />
       </div>
 
-      <h2 className="mt-10 text-lg font-bold text-brand-950">
+      <h2 className="mt-10 text-lg font-bold text-brand-950 dark:text-white">
         {dict.companyDash.acceptancesTitle}
       </h2>
       <div className="mt-4">
         {pending.length === 0 ? (
-          <Card className="p-6 text-center text-sm text-slate-500">
+          <Card className="p-6 text-center text-sm text-slate-500 dark:text-slate-400">
             {dict.companyDash.noAcceptances}
           </Card>
         ) : (
@@ -69,7 +69,7 @@ export function CompanyOverview({ locale, dict }: { locale: Locale; dict: Dictio
                         arrival={cityName(offer.arrivalCityId)}
                         className="font-semibold text-brand-950"
                       />
-                      <p className="mt-1 text-sm text-slate-500">
+                      <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                         {user?.name} · {formatDate(a.createdAt, locale)}
                       </p>
                     </div>
@@ -83,7 +83,7 @@ export function CompanyOverview({ locale, dict }: { locale: Locale; dict: Dictio
                       </Button>
                     </div>
                   </div>
-                  <p className="mt-3 rounded-lg bg-slate-50 p-3 text-xs leading-relaxed text-slate-500">
+                  <p className="mt-3 rounded-lg bg-slate-50 p-3 text-xs leading-relaxed text-slate-500 dark:bg-slate-800/60 dark:text-slate-400">
                     {dict.companyDash.acceptanceHint}
                   </p>
                 </Card>

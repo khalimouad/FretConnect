@@ -14,10 +14,10 @@ export default async function AdminPlansPage({
 
   return (
     <>
-      <h1 className="text-2xl font-bold tracking-tight text-brand-950">
+      <h1 className="text-2xl font-bold tracking-tight text-brand-950 dark:text-white">
         {dict.adminDash.plansTitle}
       </h1>
-      <p className="mt-1 text-sm text-slate-500">{dict.plans.subtitle}</p>
+      <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{dict.plans.subtitle}</p>
       <div className="mt-6">
         <PlansAdmin locale={locale} dict={dict} />
       </div>

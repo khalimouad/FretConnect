@@ -340,6 +340,11 @@ const fr: Dictionary = {
     moderationNote:
       "Modération en dernier recours : l'administrateur peut supprimer toute offre publiée.",
   },
+  theme: {
+    light: "Thème clair",
+    dark: "Thème sombre",
+    system: "Suivre le système",
+  },
   adminUI: {
     internal: "Backoffice interne",
     backToSite: "Retour au site",

@@ -17,7 +17,7 @@ export function ContactPanel({ dict }: { dict: Dictionary }) {
   return (
     <div className="space-y-4">
       {accepted ? (
-        <div className="rounded-lg bg-emerald-50 p-4 text-sm text-emerald-800 ring-1 ring-inset ring-emerald-200">
+        <div className="rounded-lg bg-emerald-50 p-4 text-sm text-emerald-800 ring-1 ring-inset ring-emerald-200 dark:bg-emerald-950 dark:text-emerald-300 dark:ring-emerald-900">
           <p className="flex items-center gap-2 font-semibold">
             <CheckIcon width={16} height={16} />
             {dict.offer.acceptPending}
@@ -28,17 +28,17 @@ export function ContactPanel({ dict }: { dict: Dictionary }) {
           <Button variant="accent" size="lg" className="w-full" onClick={() => setAccepted(true)}>
             {dict.offer.acceptOffer}
           </Button>
-          <p className="text-xs leading-relaxed text-slate-400">{dict.offer.acceptNote}</p>
+          <p className="text-xs leading-relaxed text-slate-400 dark:text-slate-500">{dict.offer.acceptNote}</p>
         </>
       )}
 
-      <div className="border-t border-slate-100 pt-4">
-        <p className="mb-2 flex items-center gap-2 text-sm font-semibold text-slate-700">
-          <MessageIcon width={16} height={16} className="text-brand-600" />
+      <div className="border-t border-slate-100 pt-4 dark:border-slate-800">
+        <p className="mb-2 flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200">
+          <MessageIcon width={16} height={16} className="text-brand-600 dark:text-brand-400" />
           {dict.offer.sendMessage}
         </p>
         {sent ? (
-          <p className="rounded-lg bg-brand-50 p-3 text-sm text-brand-800 ring-1 ring-inset ring-brand-200">
+          <p className="rounded-lg bg-brand-50 p-3 text-sm text-brand-800 ring-1 ring-inset ring-brand-200 dark:bg-brand-950 dark:text-brand-300 dark:ring-brand-900">
             {dict.offer.messageSent}
           </p>
         ) : (
@@ -54,7 +54,7 @@ export function ContactPanel({ dict }: { dict: Dictionary }) {
               onChange={(e) => setMessage(e.target.value)}
               placeholder={dict.offer.messagePlaceholder}
               rows={3}
-              className="w-full resize-none rounded-lg border border-slate-300 px-3 py-2 text-sm placeholder:text-slate-400 focus:border-brand-500 focus:outline-2 focus:outline-brand-500/30"
+              className="w-full resize-none rounded-lg border border-slate-300 px-3 py-2 text-sm placeholder:text-slate-400 focus:border-brand-500 focus:outline-2 focus:outline-brand-500/30 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500"
             />
             <Button type="submit" variant="outline" className="w-full">
               {dict.common.send}

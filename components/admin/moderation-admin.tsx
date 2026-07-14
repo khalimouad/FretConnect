@@ -137,7 +137,7 @@ export function ModerationAdmin({ locale, dict }: { locale: Locale; dict: Dictio
           </tbody>
         </table>
       </Card>
-      <p className="mt-3 text-xs text-slate-400">{dict.adminDash.moderationNote}</p>
+      <p className="mt-3 text-xs text-slate-400 dark:text-slate-500">{dict.adminDash.moderationNote}</p>
     </>
   );
 }

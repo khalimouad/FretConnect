@@ -31,10 +31,10 @@ export default async function AdminOverviewPage({
 
   return (
     <>
-      <h1 className="text-2xl font-bold tracking-tight text-brand-950">
+      <h1 className="text-2xl font-bold tracking-tight text-brand-950 dark:text-white">
         {dict.dash.overview}
       </h1>
-      <p className="mt-1 text-sm text-slate-500">{dict.adminDash.subtitle}</p>
+      <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{dict.adminDash.subtitle}</p>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
         <Stat label={dict.adminDash.statUsers} value={formatNumber(1284, locale)} />
@@ -48,7 +48,7 @@ export default async function AdminOverviewPage({
         />
       </div>
 
-      <h2 className="mt-10 text-lg font-bold text-brand-950">{dict.adminUI.latestOffers}</h2>
+      <h2 className="mt-10 text-lg font-bold text-brand-950 dark:text-white">{dict.adminUI.latestOffers}</h2>
       <Card className="mt-4 overflow-x-auto">
         <table className="w-full min-w-[680px] text-sm">
           <thead>

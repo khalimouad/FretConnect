@@ -338,6 +338,11 @@ const es: Dictionary = {
     moderationNote:
       "Moderación de último recurso: el administrador puede eliminar cualquier oferta publicada.",
   },
+  theme: {
+    light: "Tema claro",
+    dark: "Tema oscuro",
+    system: "Según el sistema",
+  },
   adminUI: {
     internal: "Back office interno",
     backToSite: "Volver al sitio",

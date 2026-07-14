@@ -69,7 +69,7 @@ export function ManagersAdmin({ dict }: { dict: Dictionary }) {
               }`}
             >
               <div>
-                <p className="flex items-center gap-2 font-semibold text-brand-950">
+                <p className="flex items-center gap-2 font-semibold text-brand-950 dark:text-white">
                   <ShieldIcon
                     width={16}
                     height={16}
@@ -85,8 +85,8 @@ export function ManagersAdmin({ dict }: { dict: Dictionary }) {
                 <p className="mt-0.5 text-sm text-slate-400">{m.email}</p>
               </div>
               <div className="flex items-center gap-5">
-                <p className="text-sm text-slate-500">
-                  <span className="font-bold text-brand-950">{portfolio}</span>{" "}
+                <p className="text-sm text-slate-500 dark:text-slate-400">
+                  <span className="font-bold text-brand-950 dark:text-white">{portfolio}</span>{" "}
                   {dict.adminDash.companiesCount}
                 </p>
                 <div className="flex gap-2">

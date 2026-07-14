@@ -41,7 +41,7 @@ export function GeoAdmin({ dict }: { dict: Dictionary }) {
 
   return (
     <>
-      <p className="max-w-2xl text-sm text-slate-500">{dict.adminDash.geoHint}</p>
+      <p className="max-w-2xl text-sm text-slate-500 dark:text-slate-400">{dict.adminDash.geoHint}</p>
 
       {/* Countries */}
       <Card className="mt-6 overflow-x-auto">
@@ -65,7 +65,7 @@ export function GeoAdmin({ dict }: { dict: Dictionary }) {
               return (
                 <tr key={c.code} className="border-b border-slate-100 last:border-0">
                   <td className="px-4 py-3 font-mono text-xs text-slate-500">{c.code}</td>
-                  <td className="px-4 py-3 font-medium text-brand-950">
+                  <td className="px-4 py-3 font-medium text-brand-950 dark:text-white">
                     <span className="inline-flex items-center gap-1.5">
                       <GlobeIcon width={14} height={14} className="text-slate-300" />
                       {c.name}
@@ -96,7 +96,7 @@ export function GeoAdmin({ dict }: { dict: Dictionary }) {
 
       {/* Regions & cities (Morocco, active) */}
       <div className="mt-8 flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-lg font-bold text-brand-950">
+        <h2 className="text-lg font-bold text-brand-950 dark:text-white">
           Maroc — {dict.adminDash.regionsCount} & {dict.adminDash.citiesCount}
         </h2>
         <Button size="sm" onClick={() => setShowForm((v) => !v)}>
@@ -138,19 +138,19 @@ export function GeoAdmin({ dict }: { dict: Dictionary }) {
           const regionCities = cities.filter((c) => c.regionId === r.id);
           return (
             <Card key={r.id} className="p-4">
-              <p className="text-sm font-semibold text-brand-950">{r.name}</p>
+              <p className="text-sm font-semibold text-brand-950 dark:text-white">{r.name}</p>
               <div className="mt-2 flex flex-wrap gap-1.5">
                 {regionCities.map((c) => (
                   <span
                     key={c.id}
                     className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-600"
                   >
-                    <MapPinIcon width={11} height={11} className="text-slate-400" />
+                    <MapPinIcon width={11} height={11} className="text-slate-400 dark:text-slate-500" />
                     {c.name}
                   </span>
                 ))}
                 {regionCities.length === 0 ? (
-                  <span className="text-xs text-slate-400">—</span>
+                  <span className="text-xs text-slate-400 dark:text-slate-500">—</span>
                 ) : null}
               </div>
             </Card>

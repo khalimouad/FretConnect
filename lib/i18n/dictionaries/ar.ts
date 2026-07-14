@@ -330,6 +330,11 @@ const ar: Dictionary = {
     editPricing: "تعديل الأسعار",
     moderationNote: "إشراف الملاذ الأخير: يمكن للإدارة حذف أي عرض منشور.",
   },
+  theme: {
+    light: "المظهر الفاتح",
+    dark: "المظهر الداكن",
+    system: "حسب النظام",
+  },
   adminUI: {
     internal: "مكتب خلفي داخلي",
     backToSite: "العودة إلى الموقع",

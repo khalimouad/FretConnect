@@ -51,18 +51,18 @@ export default async function SearchPage({
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
-      <h1 className="text-3xl font-bold tracking-tight text-brand-950">
+      <h1 className="text-3xl font-bold tracking-tight text-brand-950 dark:text-white">
         {dict.search.title}
       </h1>
-      <p className="mt-1 text-slate-500">{dict.search.subtitle}</p>
+      <p className="mt-1 text-slate-500 dark:text-slate-400">{dict.search.subtitle}</p>
 
       {/* Filters */}
       <form
         method="GET"
-        className="mt-8 grid gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-card sm:grid-cols-2 lg:grid-cols-4"
+        className="mt-8 grid gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-card sm:grid-cols-2 lg:grid-cols-4 dark:border-slate-800 dark:bg-slate-900 dark:shadow-none"
       >
         <label className="block">
-          <span className="mb-1.5 block text-sm font-medium text-slate-700">
+          <span className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
             {dict.search.departureCity}
           </span>
           <select name="departure" defaultValue={filters.departure ?? ""} className={inputClass}>
@@ -75,7 +75,7 @@ export default async function SearchPage({
           </select>
         </label>
         <label className="block">
-          <span className="mb-1.5 block text-sm font-medium text-slate-700">
+          <span className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
             {dict.search.arrivalCity}
           </span>
           <select name="arrival" defaultValue={filters.arrival ?? ""} className={inputClass}>
@@ -88,13 +88,13 @@ export default async function SearchPage({
           </select>
         </label>
         <label className="block">
-          <span className="mb-1.5 block text-sm font-medium text-slate-700">
+          <span className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
             {dict.search.dateFrom}
           </span>
           <input type="date" name="date" defaultValue={str(sp.date) ?? ""} className={inputClass} />
         </label>
         <label className="block">
-          <span className="mb-1.5 block text-sm font-medium text-slate-700">
+          <span className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
             {dict.search.vehicleType}
           </span>
           <select name="vehicle" defaultValue={filters.vehicle ?? ""} className={inputClass}>
@@ -107,7 +107,7 @@ export default async function SearchPage({
           </select>
         </label>
         <label className="block">
-          <span className="mb-1.5 block text-sm font-medium text-slate-700">
+          <span className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
             {dict.search.minCapacity}
           </span>
           <input
@@ -120,7 +120,7 @@ export default async function SearchPage({
           />
         </label>
         <label className="block">
-          <span className="mb-1.5 block text-sm font-medium text-slate-700">
+          <span className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
             {dict.search.maxPrice}
           </span>
           <input
@@ -133,7 +133,7 @@ export default async function SearchPage({
           />
         </label>
         <label className="block">
-          <span className="mb-1.5 block text-sm font-medium text-slate-700">
+          <span className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
             {dict.search.sortBy}
           </span>
           <select name="sort" defaultValue={filters.sort} className={inputClass}>
@@ -149,7 +149,7 @@ export default async function SearchPage({
           </Button>
           <Link
             href={`/${locale}/search`}
-            className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50"
+            className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
           >
             {dict.search.clearFilters}
           </Link>
@@ -158,8 +158,8 @@ export default async function SearchPage({
 
       {/* Results */}
       <div className="mt-8 flex flex-wrap items-center justify-between gap-3">
-        <p className="text-sm text-slate-500">
-          <span className="font-semibold text-brand-950">{results.length}</span>{" "}
+        <p className="text-sm text-slate-500 dark:text-slate-400">
+          <span className="font-semibold text-brand-950 dark:text-white">{results.length}</span>{" "}
           {dict.search.resultsCount}
         </p>
         {hasRouteFilter ? (
@@ -174,9 +174,9 @@ export default async function SearchPage({
           ))}
         </div>
       ) : (
-        <div className="mt-5 rounded-xl border border-dashed border-slate-300 bg-white p-12 text-center">
-          <p className="text-lg font-semibold text-slate-700">{dict.search.noResults}</p>
-          <p className="mx-auto mt-2 max-w-md text-sm text-slate-500">
+        <div className="mt-5 rounded-xl border border-dashed border-slate-300 bg-white p-12 text-center dark:border-slate-700 dark:bg-slate-900">
+          <p className="text-lg font-semibold text-slate-700 dark:text-slate-200">{dict.search.noResults}</p>
+          <p className="mx-auto mt-2 max-w-md text-sm text-slate-500 dark:text-slate-400">
             {dict.search.noResultsHint}
           </p>
           <div className="mt-6">

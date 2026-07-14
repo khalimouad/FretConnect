@@ -16,12 +16,12 @@ export function UserHistoryPage({ locale, dict }: { locale: Locale; dict: Dictio
 
   return (
     <>
-      <h1 className="text-2xl font-bold tracking-tight text-brand-950">
+      <h1 className="text-2xl font-bold tracking-tight text-brand-950 dark:text-white">
         {dict.userDash.historyTitle}
       </h1>
 
       {history.length === 0 ? (
-        <Card className="mt-6 p-8 text-center text-sm text-slate-500">
+        <Card className="mt-6 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
           {dict.userDash.historyEmpty}
         </Card>
       ) : (
@@ -36,15 +36,15 @@ export function UserHistoryPage({ locale, dict }: { locale: Locale; dict: Dictio
                     className="font-semibold text-brand-950"
                   />
                 </Link>
-                <p className="mt-1 text-xs text-slate-400">{formatDate(h.createdAt, locale)}</p>
+                <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">{formatDate(h.createdAt, locale)}</p>
               </div>
               {h.status === "confirmed" ? (
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-200">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-200 dark:bg-emerald-950 dark:text-emerald-300 dark:ring-emerald-900">
                   <CheckIcon width={13} height={13} />
                   {dict.userDash.confirmed}
                 </span>
               ) : (
-                <span className="rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700 ring-1 ring-inset ring-amber-200">
+                <span className="rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700 ring-1 ring-inset ring-amber-200 dark:bg-amber-950 dark:text-amber-300 dark:ring-amber-900">
                   {dict.userDash.awaitingConfirm}
                 </span>
               )}

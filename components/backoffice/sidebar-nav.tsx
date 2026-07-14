@@ -70,8 +70,8 @@ export function SidebarNav({
         }`
       : `flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
           active
-            ? "bg-brand-50 text-brand-900"
-            : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+            ? "bg-brand-50 text-brand-900 dark:bg-brand-950 dark:text-brand-200"
+            : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-slate-100"
         }`;
 
   return (
@@ -90,7 +90,7 @@ export function SidebarNav({
                   ? "text-accent-500"
                   : tone === "dark"
                     ? "text-brand-300"
-                    : "text-slate-400"
+                    : "text-slate-400 dark:text-slate-500"
               }
             />
             {it.label}
@@ -98,13 +98,13 @@ export function SidebarNav({
         );
       })}
       <div
-        className={`mt-6 border-t pt-4 ${tone === "dark" ? "border-white/10" : "border-slate-200"}`}
+        className={`mt-6 border-t pt-4 ${tone === "dark" ? "border-white/10" : "border-slate-200 dark:border-slate-800"}`}
       >
         <Link href={backHref} className={linkClass(false)}>
           <TruckIcon
             width={17}
             height={17}
-            className={tone === "dark" ? "text-brand-300" : "text-slate-400"}
+            className={tone === "dark" ? "text-brand-300" : "text-slate-400 dark:text-slate-500"}
           />
           {backLabel}
         </Link>

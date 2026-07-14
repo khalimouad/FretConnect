@@ -86,40 +86,40 @@ export default async function LandingPage({
       {/* How it works */}
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
         <div className="max-w-2xl">
-          <h2 className="text-3xl font-bold tracking-tight text-brand-950">
+          <h2 className="text-3xl font-bold tracking-tight text-brand-950 dark:text-white">
             {dict.landing.howTitle}
           </h2>
-          <p className="mt-2 text-slate-500">{dict.landing.howSubtitle}</p>
+          <p className="mt-2 text-slate-500 dark:text-slate-400">{dict.landing.howSubtitle}</p>
         </div>
         <div className="mt-10 grid gap-6 md:grid-cols-3">
           {steps.map((step, i) => (
             <div
               key={step.title}
-              className="rounded-xl border border-slate-200 bg-white p-6 shadow-card"
+              className="rounded-xl border border-slate-200 bg-white p-6 shadow-card dark:border-slate-800 dark:bg-slate-900 dark:shadow-none"
             >
               <div className="flex items-center gap-3">
                 <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-brand-900 text-accent-400">
                   <step.icon width={22} height={22} />
                 </span>
-                <span className="text-sm font-semibold text-slate-400">0{i + 1}</span>
+                <span className="text-sm font-semibold text-slate-400 dark:text-slate-500">0{i + 1}</span>
               </div>
-              <h3 className="mt-4 text-lg font-semibold text-brand-950">{step.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-500">{step.text}</p>
+              <h3 className="mt-4 text-lg font-semibold text-brand-950 dark:text-white">{step.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-500 dark:text-slate-400">{step.text}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* Latest offers */}
-      <section className="bg-white py-20">
+      <section className="bg-white py-20 dark:bg-slate-950">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="flex flex-wrap items-end justify-between gap-4">
-            <h2 className="text-3xl font-bold tracking-tight text-brand-950">
+            <h2 className="text-3xl font-bold tracking-tight text-brand-950 dark:text-white">
               {dict.search.title}
             </h2>
             <Link
               href={`/${locale}/search`}
-              className="text-sm font-semibold text-accent-600 hover:text-accent-700"
+              className="text-sm font-semibold text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300"
             >
               {dict.common.viewAll}
             </Link>
@@ -155,14 +155,14 @@ export default async function LandingPage({
             {dict.nav.pricing}
           </ButtonLink>
         </div>
-        <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-card sm:p-10">
-          <h3 className="text-2xl font-bold text-brand-950">{dict.landing.shippersTitle}</h3>
-          <p className="mt-3 leading-relaxed text-slate-500">{dict.landing.shippersText}</p>
+        <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-card sm:p-10 dark:border-slate-800 dark:bg-slate-900 dark:shadow-none">
+          <h3 className="text-2xl font-bold text-brand-950 dark:text-white">{dict.landing.shippersTitle}</h3>
+          <p className="mt-3 leading-relaxed text-slate-500 dark:text-slate-400">{dict.landing.shippersText}</p>
           <ul className="mt-6 space-y-3">
             {[dict.landing.shipperB1, dict.landing.shipperB2, dict.landing.shipperB3].map(
               (b) => (
-                <li key={b} className="flex items-start gap-2.5 text-sm text-slate-600">
-                  <CheckIcon width={18} height={18} className="mt-0.5 shrink-0 text-emerald-600" />
+                <li key={b} className="flex items-start gap-2.5 text-sm text-slate-600 dark:text-slate-300">
+                  <CheckIcon width={18} height={18} className="mt-0.5 shrink-0 text-emerald-600 dark:text-emerald-400" />
                   {b}
                 </li>
               ),
@@ -176,13 +176,13 @@ export default async function LandingPage({
       </section>
 
       {/* Coverage + CTA */}
-      <section className="bg-white">
+      <section className="bg-white dark:bg-slate-950">
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
           <div className="max-w-2xl">
-            <h2 className="text-3xl font-bold tracking-tight text-brand-950">
+            <h2 className="text-3xl font-bold tracking-tight text-brand-950 dark:text-white">
               {dict.landing.coverageTitle}
             </h2>
-            <p className="mt-3 leading-relaxed text-slate-500">{dict.landing.coverageText}</p>
+            <p className="mt-3 leading-relaxed text-slate-500 dark:text-slate-400">{dict.landing.coverageText}</p>
           </div>
           <div className="mt-12 rounded-2xl bg-gradient-to-br from-brand-900 to-brand-950 p-8 text-center sm:p-12">
             <h3 className="text-2xl font-bold text-white sm:text-3xl">

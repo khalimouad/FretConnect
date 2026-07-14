@@ -331,6 +331,11 @@ const en = {
     moderationNote:
       "Last-resort moderation: administrators can remove any published offer.",
   },
+  theme: {
+    light: "Light theme",
+    dark: "Dark theme",
+    system: "Match system",
+  },
   adminUI: {
     internal: "Internal backoffice",
     backToSite: "Back to site",

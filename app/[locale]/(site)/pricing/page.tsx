@@ -24,10 +24,10 @@ export default async function PricingPage({
   return (
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
       <div className="mx-auto max-w-2xl text-center">
-        <h1 className="text-4xl font-bold tracking-tight text-brand-950">
+        <h1 className="text-4xl font-bold tracking-tight text-brand-950 dark:text-white">
           {dict.plans.title}
         </h1>
-        <p className="mt-3 text-slate-500">{dict.plans.subtitle}</p>
+        <p className="mt-3 text-slate-500 dark:text-slate-400">{dict.plans.subtitle}</p>
       </div>
 
       <div className="mx-auto mt-12 grid max-w-5xl gap-6 lg:grid-cols-3">
@@ -44,8 +44,10 @@ export default async function PricingPage({
           return (
             <div
               key={plan.id}
-              className={`relative flex flex-col rounded-2xl border bg-white p-7 shadow-card ${
-                highlight ? "border-accent-500 ring-2 ring-accent-500" : "border-slate-200"
+              className={`relative flex flex-col rounded-2xl border bg-white p-7 shadow-card dark:bg-slate-900 dark:shadow-none ${
+                highlight
+                  ? "border-accent-500 ring-2 ring-accent-500"
+                  : "border-slate-200 dark:border-slate-800"
               }`}
             >
               {highlight ? (
@@ -53,18 +55,18 @@ export default async function PricingPage({
                   {dict.plans.popular}
                 </span>
               ) : null}
-              <h2 className="text-lg font-bold text-brand-950">{dict.plans[plan.nameKey]}</h2>
-              <p className="mt-1 text-sm text-slate-500">{descriptions[plan.nameKey]}</p>
+              <h2 className="text-lg font-bold text-brand-950 dark:text-white">{dict.plans[plan.nameKey]}</h2>
+              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{descriptions[plan.nameKey]}</p>
               <p className="mt-5">
-                <span className="text-4xl font-bold tracking-tight text-brand-950">
+                <span className="text-4xl font-bold tracking-tight text-brand-950 dark:text-white">
                   {formatMoney(plan.monthlyPrice, locale)}
                 </span>
-                <span className="text-sm text-slate-400">{dict.common.perMonth}</span>
+                <span className="text-sm text-slate-400 dark:text-slate-500">{dict.common.perMonth}</span>
               </p>
               <ul className="mt-6 flex-1 space-y-2.5">
                 {features.map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-sm text-slate-600">
-                    <CheckIcon width={16} height={16} className="mt-0.5 shrink-0 text-emerald-600" />
+                  <li key={f} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-300">
+                    <CheckIcon width={16} height={16} className="mt-0.5 shrink-0 text-emerald-600 dark:text-emerald-400" />
                     {f}
                   </li>
                 ))}
@@ -80,7 +82,7 @@ export default async function PricingPage({
           );
         })}
       </div>
-      <p className="mt-8 text-center text-sm text-slate-400">{dict.plans.trialNote}</p>
+      <p className="mt-8 text-center text-sm text-slate-400 dark:text-slate-500">{dict.plans.trialNote}</p>
     </div>
   );
 }
