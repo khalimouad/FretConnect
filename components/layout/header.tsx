@@ -13,6 +13,7 @@ import {
   XIcon,
 } from "@/components/icons";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
+import { CurrencySelector } from "@/components/currency/selector";
 
 function useClickOutside(onOutside: () => void) {
   const ref = useRef<HTMLDivElement>(null);
@@ -138,6 +139,7 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         </nav>
 
         <div className="ms-auto hidden items-center gap-2 md:flex">
+          <CurrencySelector dict={dict} />
           <ThemeToggle labels={themeLabels} />
           <LangSwitcher locale={locale} />
           <Link

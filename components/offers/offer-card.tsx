@@ -1,9 +1,10 @@
 import Link from "next/link";
 import type { OfferWithCompany } from "@/lib/data/repository";
 import { cityName } from "@/lib/data/geo";
-import { formatDate, formatMoney } from "@/lib/format";
+import { formatDate } from "@/lib/format";
 import type { Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n";
+import { PriceTag } from "@/components/currency/price-tag";
 import {
   CalendarIcon,
   RouteArrowIcon,
@@ -51,7 +52,11 @@ export function OfferCard({
           className="text-lg font-bold tracking-tight text-brand-950 dark:text-white"
         />
         <p className="text-lg font-bold text-accent-600 dark:text-accent-400">
-          {offer.price ? formatMoney(offer.price, locale) : dict.offer.onRequest}
+          {offer.price ? (
+            <PriceTag money={offer.price} locale={locale} />
+          ) : (
+            dict.offer.onRequest
+          )}
         </p>
       </div>
 

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { isLocale, localeMeta, locales } from "@/lib/i18n/config";
 import { ToastProvider } from "@/components/toast";
+import { CurrencyProvider } from "@/components/currency/provider";
 import "../globals.css";
 
 const inter = Inter({
@@ -45,7 +46,9 @@ export default async function LocaleLayout({
         />
       </head>
       <body className="font-sans">
-        <ToastProvider>{children}</ToastProvider>
+        <CurrencyProvider>
+          <ToastProvider>{children}</ToastProvider>
+        </CurrencyProvider>
       </body>
     </html>
   );

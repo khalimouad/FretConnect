@@ -3,6 +3,8 @@ import { getDictionary } from "@/lib/i18n";
 import { isLocale } from "@/lib/i18n/config";
 import { managers } from "@/lib/data/mock";
 import { BackofficeShell } from "@/components/backoffice/shell";
+import { NotificationBell } from "@/components/notifications/bell";
+import { managerNotifications } from "@/lib/data/notifications";
 
 /** Internal Manager backoffice (§3.2) — carrier validation and follow-up. */
 export default async function ManagerLayout({
@@ -21,7 +23,7 @@ export default async function ManagerLayout({
     <BackofficeShell
       tone="dark"
       locale={locale}
-      themeLabels={dict.theme}
+      dict={dict}
       homeHref={base}
       roleLabel={dict.nav.spaceManager}
       items={[
@@ -34,6 +36,9 @@ export default async function ManagerLayout({
       identityLabel={dict.dash.signedInAs}
       identity={managers[0].name}
       demoNote={`${dict.adminUI.internal} · ${dict.common.demoBanner}`}
+      topbarExtra={
+        <NotificationBell locale={locale} dict={dict} notifications={managerNotifications} />
+      }
     >
       {children}
     </BackofficeShell>

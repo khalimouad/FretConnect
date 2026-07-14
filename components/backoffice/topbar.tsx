@@ -4,7 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { localeMeta, locales, type Locale } from "@/lib/i18n/config";
+import type { Dictionary } from "@/lib/i18n";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
+import { CurrencySelector } from "@/components/currency/selector";
 import { ChevronDownIcon, GlobeIcon } from "@/components/icons";
 
 function useClickOutside(onOutside: () => void) {
@@ -68,16 +70,18 @@ function initials(name: string): string {
 
 export function Topbar({
   locale,
+  dict,
   demoLabel,
   identity,
   themeLabels,
   extra,
 }: {
   locale: Locale;
+  dict: Dictionary;
   demoLabel: string;
   identity: string;
   themeLabels: { light: string; dark: string; system: string };
-  /** Extra slots (notification bell, currency selector) rendered before the theme toggle. */
+  /** Extra slots (notification bell) rendered before the currency/theme controls. */
   extra?: ReactNode;
 }) {
   return (
@@ -88,6 +92,7 @@ export function Topbar({
 
       <div className="ms-auto flex items-center gap-1">
         {extra}
+        <CurrencySelector dict={dict} />
         <ThemeToggle labels={themeLabels} />
         <CompactLangSwitcher locale={locale} />
         <span className="ms-1 flex h-8 w-8 items-center justify-center rounded-full bg-brand-900 text-xs font-bold text-white dark:bg-brand-700">

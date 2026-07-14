@@ -4,7 +4,9 @@ import { getDictionary } from "@/lib/i18n";
 import { isLocale } from "@/lib/i18n/config";
 import { getOffer, searchOffers } from "@/lib/data/repository";
 import { cityName, getCity, regions } from "@/lib/data/geo";
-import { formatDate, formatMoney } from "@/lib/format";
+import { formatDate } from "@/lib/format";
+import { PriceTag } from "@/components/currency/price-tag";
+import { OriginalPriceNote } from "@/components/currency/original-note";
 import { OfferCard, RouteLine } from "@/components/offers/offer-card";
 import { ContactPanel } from "@/components/offers/contact-panel";
 import { Card, OfferStatusBadge } from "@/components/ui";
@@ -107,13 +109,20 @@ export default async function OfferPage({
                 {dict.offer.indicativePrice}
               </span>
               <span className="text-2xl font-bold text-accent-700 dark:text-accent-400">
-                {offer.price ? formatMoney(offer.price, locale) : dict.offer.onRequest}
+                {offer.price ? (
+                  <PriceTag money={offer.price} locale={locale} />
+                ) : (
+                  dict.offer.onRequest
+                )}
                 {offer.price ? (
                   <span className="ms-2 text-sm font-medium text-accent-600 dark:text-accent-400">
                     · {dict.common.negotiable}
                   </span>
                 ) : null}
               </span>
+              {offer.price ? (
+                <OriginalPriceNote money={offer.price} locale={locale} dict={dict} />
+              ) : null}
             </div>
 
             <div className="mt-6 grid gap-3 sm:grid-cols-2">

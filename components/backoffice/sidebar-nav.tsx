@@ -5,8 +5,10 @@ import { usePathname } from "next/navigation";
 import {
   BellIcon,
   CardIcon,
+  GearIcon,
   GlobeIcon,
   HomeIcon,
+  InboxIcon,
   ListIcon,
   MapPinIcon,
   MessageIcon,
@@ -25,7 +27,9 @@ export type NavIcon =
   | "users"
   | "shield"
   | "mappin"
-  | "globe";
+  | "globe"
+  | "inbox"
+  | "gear";
 
 export interface NavItem {
   href: string;
@@ -44,6 +48,8 @@ const icons = {
   shield: ShieldIcon,
   mappin: MapPinIcon,
   globe: GlobeIcon,
+  inbox: InboxIcon,
+  gear: GearIcon,
 } as const;
 
 export function SidebarNav({
