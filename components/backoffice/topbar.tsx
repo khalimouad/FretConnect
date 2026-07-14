@@ -7,7 +7,7 @@ import { localeMeta, locales, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { CurrencySelector } from "@/components/currency/selector";
-import { ChevronDownIcon, GlobeIcon } from "@/components/icons";
+import { ChevronDownIcon, GlobeIcon, MenuIcon } from "@/components/icons";
 
 function useClickOutside(onOutside: () => void) {
   const ref = useRef<HTMLDivElement>(null);
@@ -21,7 +21,7 @@ function useClickOutside(onOutside: () => void) {
   return ref;
 }
 
-function CompactLangSwitcher({ locale }: { locale: Locale }) {
+export function CompactLangSwitcher({ locale }: { locale: Locale }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const ref = useClickOutside(() => setOpen(false));
@@ -75,6 +75,8 @@ export function Topbar({
   identity,
   themeLabels,
   extra,
+  onMenuClick,
+  menuLabel,
 }: {
   locale: Locale;
   dict: Dictionary;
@@ -83,18 +85,32 @@ export function Topbar({
   themeLabels: { light: string; dark: string; system: string };
   /** Extra slots (notification bell) rendered before the currency/theme controls. */
   extra?: ReactNode;
+  /** Opens the mobile drawer. When set, a hamburger button is shown below lg. */
+  onMenuClick?: () => void;
+  menuLabel?: string;
 }) {
   return (
     <div className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-slate-200 bg-white/95 px-4 backdrop-blur sm:px-8 dark:border-slate-800 dark:bg-slate-900/95">
+      {onMenuClick ? (
+        <button
+          onClick={onMenuClick}
+          className="cursor-pointer rounded-lg p-2 text-slate-600 hover:bg-slate-100 lg:hidden dark:text-slate-300 dark:hover:bg-white/10"
+          aria-label={menuLabel ?? "Menu"}
+        >
+          <MenuIcon width={20} height={20} />
+        </button>
+      ) : null}
       <span className="hidden items-center gap-1.5 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-800 sm:inline-flex dark:bg-amber-950 dark:text-amber-300">
         {demoLabel}
       </span>
 
       <div className="ms-auto flex items-center gap-1">
         {extra}
-        <CurrencySelector dict={dict} />
-        <ThemeToggle labels={themeLabels} />
-        <CompactLangSwitcher locale={locale} />
+        <div className="hidden items-center gap-1 lg:flex">
+          <CurrencySelector dict={dict} />
+          <ThemeToggle labels={themeLabels} />
+          <CompactLangSwitcher locale={locale} />
+        </div>
         <span className="ms-1 flex h-8 w-8 items-center justify-center rounded-full bg-brand-900 text-xs font-bold text-white dark:bg-brand-700">
           {initials(identity)}
         </span>

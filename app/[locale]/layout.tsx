@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { isLocale, localeMeta, locales } from "@/lib/i18n/config";
@@ -18,6 +18,12 @@ export const metadata: Metadata = {
   },
   description:
     "Plateforme de mise en relation entre sociétés de transport (trajets retour à vide) et expéditeurs au Maroc.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export function generateStaticParams() {

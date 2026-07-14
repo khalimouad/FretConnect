@@ -39,6 +39,8 @@ const ar: Dictionary = {
     spaceCompany: "فضاء الناقل",
     spaceManager: "فضاء المدير",
     spaceAdmin: "فضاء الإدارة",
+    menu: "القائمة",
+    more: "المزيد",
   },
   landing: {
     heroBadge: "المغرب · غرب أفريقيا وأوروبا قريباً",

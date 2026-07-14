@@ -38,6 +38,8 @@ const en = {
     spaceCompany: "Carrier space",
     spaceManager: "Manager space",
     spaceAdmin: "Admin space",
+    menu: "Menu",
+    more: "More",
   },
   landing: {
     heroBadge: "Morocco · West Africa & Europe coming soon",

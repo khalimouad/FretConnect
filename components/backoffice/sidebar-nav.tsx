@@ -37,7 +37,7 @@ export interface NavItem {
   icon: NavIcon;
 }
 
-const icons = {
+export const navIcons = {
   home: HomeIcon,
   truck: TruckIcon,
   message: MessageIcon,
@@ -83,7 +83,7 @@ export function SidebarNav({
   return (
     <nav className="flex flex-col gap-1">
       {items.map((it) => {
-        const Icon = icons[it.icon];
+        const Icon = navIcons[it.icon];
         const active =
           it.href === baseHref ? pathname === baseHref : pathname.startsWith(it.href);
         return (

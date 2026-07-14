@@ -40,6 +40,8 @@ const es: Dictionary = {
     spaceCompany: "Espacio transportista",
     spaceManager: "Espacio manager",
     spaceAdmin: "Espacio admin",
+    menu: "Menú",
+    more: "Más",
   },
   landing: {
     heroBadge: "Marruecos · África Occidental y Europa próximamente",
