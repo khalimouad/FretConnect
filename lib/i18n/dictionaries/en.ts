@@ -334,6 +334,12 @@ const en = {
     moderationNote:
       "Last-resort moderation: administrators can remove any published offer.",
   },
+  map: {
+    title: "Route map",
+    listView: "List",
+    mapView: "Map",
+    routeCard: "Route",
+  },
   settingsUI: {
     title: "Settings",
     subtitle: "Notifications, appearance and currency preferences.",

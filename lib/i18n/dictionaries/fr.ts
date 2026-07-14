@@ -343,6 +343,12 @@ const fr: Dictionary = {
     moderationNote:
       "Modération en dernier recours : l'administrateur peut supprimer toute offre publiée.",
   },
+  map: {
+    title: "Carte des trajets",
+    listView: "Liste",
+    mapView: "Carte",
+    routeCard: "Trajet",
+  },
   settingsUI: {
     title: "Paramètres",
     subtitle: "Notifications, apparence et préférences de devise.",

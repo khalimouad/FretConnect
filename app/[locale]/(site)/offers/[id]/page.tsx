@@ -9,6 +9,7 @@ import { PriceTag } from "@/components/currency/price-tag";
 import { OriginalPriceNote } from "@/components/currency/original-note";
 import { OfferCard, RouteLine } from "@/components/offers/offer-card";
 import { ContactPanel } from "@/components/offers/contact-panel";
+import { RouteMap } from "@/components/map/route-map";
 import { Card, OfferStatusBadge } from "@/components/ui";
 import {
   CalendarIcon,
@@ -167,6 +168,22 @@ export default async function OfferPage({
 
         {/* Contact sidebar */}
         <div className="space-y-4">
+          <Card className="p-3">
+            <RouteMap
+              compact
+              locale={locale}
+              dict={dict}
+              routes={[
+                {
+                  id: offer.id,
+                  departureCityId: offer.departureCityId,
+                  arrivalCityId: offer.arrivalCityId,
+                  price: offer.price,
+                },
+              ]}
+            />
+          </Card>
+
           <Card className="p-6">
             <p className="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">
               {dict.offer.carrier}

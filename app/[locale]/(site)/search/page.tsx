@@ -4,8 +4,8 @@ import { isLocale } from "@/lib/i18n/config";
 import { searchOffers, type SearchFilters } from "@/lib/data/repository";
 import { cities } from "@/lib/data/geo";
 import type { VehicleType } from "@/lib/domain/types";
-import { OfferCard } from "@/components/offers/offer-card";
 import { AlertButton } from "@/components/offers/alert-button";
+import { SearchResultsView } from "@/components/search/results-view";
 import { Button, inputClass } from "@/components/ui";
 import { SearchIcon } from "@/components/icons";
 import Link from "next/link";
@@ -168,10 +168,8 @@ export default async function SearchPage({
       </div>
 
       {results.length > 0 ? (
-        <div className="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {results.map((offer) => (
-            <OfferCard key={offer.id} offer={offer} locale={locale} dict={dict} />
-          ))}
+        <div className="mt-5">
+          <SearchResultsView results={results} locale={locale} dict={dict} />
         </div>
       ) : (
         <div className="mt-5 rounded-xl border border-dashed border-slate-300 bg-white p-12 text-center dark:border-slate-700 dark:bg-slate-900">

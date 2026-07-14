@@ -333,6 +333,12 @@ const ar: Dictionary = {
     editPricing: "تعديل الأسعار",
     moderationNote: "إشراف الملاذ الأخير: يمكن للإدارة حذف أي عرض منشور.",
   },
+  map: {
+    title: "خريطة المسارات",
+    listView: "قائمة",
+    mapView: "خريطة",
+    routeCard: "المسار",
+  },
   settingsUI: {
     title: "الإعدادات",
     subtitle: "تفضيلات الإشعارات والمظهر والعملة.",

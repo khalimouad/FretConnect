@@ -341,6 +341,12 @@ const es: Dictionary = {
     moderationNote:
       "Moderación de último recurso: el administrador puede eliminar cualquier oferta publicada.",
   },
+  map: {
+    title: "Mapa de rutas",
+    listView: "Lista",
+    mapView: "Mapa",
+    routeCard: "Ruta",
+  },
   settingsUI: {
     title: "Ajustes",
     subtitle: "Preferencias de notificaciones, apariencia y moneda.",

@@ -58,6 +58,8 @@ export interface City {
   regionId: string;
   countryCode: string;
   name: string;
+  lat: number;
+  lng: number;
 }
 
 export interface Money {

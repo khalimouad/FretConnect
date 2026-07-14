@@ -115,6 +115,9 @@ export function GeoAdmin({ dict }: { dict: Dictionary }) {
         regionId,
         countryCode: region.countryCode,
         name: cityName,
+        // Approximate centre of Morocco; a real form would geocode the address.
+        lat: 31.5,
+        lng: -6.5,
       },
     ]);
     setCityName("");
