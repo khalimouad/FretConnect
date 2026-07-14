@@ -330,6 +330,16 @@ const ar: Dictionary = {
     editPricing: "تعديل الأسعار",
     moderationNote: "إشراف الملاذ الأخير: يمكن للإدارة حذف أي عرض منشور.",
   },
+  table: {
+    search: "بحث…",
+    columns: "الأعمدة",
+    noData: "لا توجد صفوف مطابقة.",
+    export: "تصدير CSV",
+    previous: "السابق",
+    next: "التالي",
+    pageOf: "الصفحة {page} من {total}",
+    allValues: "الكل",
+  },
   theme: {
     light: "المظهر الفاتح",
     dark: "المظهر الداكن",

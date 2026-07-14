@@ -331,6 +331,16 @@ const en = {
     moderationNote:
       "Last-resort moderation: administrators can remove any published offer.",
   },
+  table: {
+    search: "Search…",
+    columns: "Columns",
+    noData: "No matching rows.",
+    export: "Export CSV",
+    previous: "Previous",
+    next: "Next",
+    pageOf: "Page {page} of {total}",
+    allValues: "All",
+  },
   theme: {
     light: "Light theme",
     dark: "Dark theme",

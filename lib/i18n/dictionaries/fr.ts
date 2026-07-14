@@ -340,6 +340,16 @@ const fr: Dictionary = {
     moderationNote:
       "Modération en dernier recours : l'administrateur peut supprimer toute offre publiée.",
   },
+  table: {
+    search: "Rechercher…",
+    columns: "Colonnes",
+    noData: "Aucune ligne correspondante.",
+    export: "Exporter en CSV",
+    previous: "Précédent",
+    next: "Suivant",
+    pageOf: "Page {page} sur {total}",
+    allValues: "Tous",
+  },
   theme: {
     light: "Thème clair",
     dark: "Thème sombre",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/config";
 import type { Offer, OfferStatus, VehicleType } from "@/lib/domain/types";
@@ -12,6 +12,7 @@ import { Button, Card, OfferStatusBadge, inputClass } from "@/components/ui";
 import { RouteLine } from "@/components/offers/offer-card";
 import { TruckIcon } from "@/components/icons";
 import { useToast } from "@/components/toast";
+import { DataTable, type Column } from "@/components/table/data-table";
 
 const COMPANY_ID = "co-atlas";
 
@@ -50,22 +51,84 @@ export function CompanyOffersPage({ locale, dict }: { locale: Locale; dict: Dict
     if (key) push(dict.toast[key]);
   }
 
-  const sortedOffers = useMemo(
-    () =>
-      [...offers].sort((a, b) => {
-        const order: OfferStatus[] = [
-          "active",
-          "draft",
-          "expired",
-          "filled",
-          "suspended",
-          "cancelled",
-          "archived",
-        ];
-        return order.indexOf(a.status) - order.indexOf(b.status);
-      }),
-    [offers],
-  );
+  const columns: Column<Offer>[] = [
+    {
+      key: "route",
+      label: dict.offer.route,
+      sortable: true,
+      value: (o) => `${cityName(o.departureCityId)} ${cityName(o.arrivalCityId)}`,
+      render: (o) => (
+        <RouteLine
+          departure={cityName(o.departureCityId)}
+          arrival={cityName(o.arrivalCityId)}
+          className="font-medium text-brand-950 dark:text-white"
+        />
+      ),
+    },
+    {
+      key: "date",
+      label: dict.common.date,
+      sortable: true,
+      value: (o) => o.availableFrom,
+      render: (o) => (
+        <span className="whitespace-nowrap text-slate-500 dark:text-slate-400">
+          {formatDate(o.availableFrom, locale)}
+        </span>
+      ),
+    },
+    {
+      key: "vehicle",
+      label: dict.offer.vehicle,
+      filterOptions: vehicleTypes.map((v) => ({ value: v, label: dict.vehicles[v] })),
+      filterValue: (o) => o.vehicleType,
+      render: (o) => (
+        <span className="text-slate-500 dark:text-slate-400">{dict.vehicles[o.vehicleType]}</span>
+      ),
+    },
+    {
+      key: "price",
+      label: dict.common.price,
+      sortable: true,
+      value: (o) => o.price?.amount ?? -1,
+      render: (o) => (
+        <span className="whitespace-nowrap text-slate-500 dark:text-slate-400">
+          {o.price ? formatMoney(o.price, locale) : dict.offer.onRequest}
+        </span>
+      ),
+    },
+    {
+      key: "status",
+      label: dict.common.status,
+      filterOptions: (
+        ["active", "draft", "expired", "filled", "suspended", "cancelled", "archived"] as OfferStatus[]
+      ).map((s) => ({ value: s, label: dict.status[s] })),
+      filterValue: (o) => o.status,
+      render: (o) => <OfferStatusBadge status={o.status} dict={dict} />,
+    },
+    {
+      key: "actions",
+      label: dict.common.actions,
+      render: (o) => (
+        <div className="flex flex-wrap gap-1.5">
+          {offerActions(o.status).map((action) => (
+            <button
+              key={action.labelKey}
+              onClick={() => applyAction(o.id, action.to, action.labelKey)}
+              className={`cursor-pointer rounded-md border px-2 py-1 text-xs font-medium ${
+                action.labelKey === "delete"
+                  ? "border-red-200 text-red-600 hover:bg-red-50 dark:border-red-900 dark:text-red-400 dark:hover:bg-red-950"
+                  : action.labelKey === "publish" || action.labelKey === "republish"
+                    ? "border-accent-300 bg-accent-50 text-accent-700 hover:bg-accent-100 dark:border-accent-800 dark:bg-accent-950 dark:hover:bg-accent-900"
+                    : "border-slate-200 text-slate-600 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
+              }`}
+            >
+              {dict.companyDash[action.labelKey]}
+            </button>
+          ))}
+        </div>
+      ),
+    },
+  ];
 
   return (
     <>
@@ -93,62 +156,14 @@ export function CompanyOffersPage({ locale, dict }: { locale: Locale; dict: Dict
         />
       ) : null}
 
-      <Card className="mt-6 overflow-x-auto">
-        <table className="w-full min-w-[720px] text-sm">
-          <thead>
-            <tr className="border-b border-slate-200 text-start text-xs uppercase tracking-wide text-slate-400">
-              <th className="px-4 py-3 text-start font-medium">{dict.offer.route}</th>
-              <th className="px-4 py-3 text-start font-medium">{dict.common.date}</th>
-              <th className="px-4 py-3 text-start font-medium">{dict.offer.vehicle}</th>
-              <th className="px-4 py-3 text-start font-medium">{dict.common.price}</th>
-              <th className="px-4 py-3 text-start font-medium">{dict.common.status}</th>
-              <th className="px-4 py-3 text-start font-medium">{dict.common.actions}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sortedOffers.map((o) => (
-              <tr key={o.id} className="border-b border-slate-100 last:border-0">
-                <td className="px-4 py-3">
-                  <RouteLine
-                    departure={cityName(o.departureCityId)}
-                    arrival={cityName(o.arrivalCityId)}
-                    className="font-medium text-brand-950"
-                  />
-                </td>
-                <td className="whitespace-nowrap px-4 py-3 text-slate-500">
-                  {formatDate(o.availableFrom, locale)}
-                </td>
-                <td className="px-4 py-3 text-slate-500">{dict.vehicles[o.vehicleType]}</td>
-                <td className="whitespace-nowrap px-4 py-3 text-slate-500">
-                  {o.price ? formatMoney(o.price, locale) : dict.offer.onRequest}
-                </td>
-                <td className="px-4 py-3">
-                  <OfferStatusBadge status={o.status} dict={dict} />
-                </td>
-                <td className="px-4 py-3">
-                  <div className="flex flex-wrap gap-1.5">
-                    {offerActions(o.status).map((action) => (
-                      <button
-                        key={action.labelKey}
-                        onClick={() => applyAction(o.id, action.to, action.labelKey)}
-                        className={`cursor-pointer rounded-md border px-2 py-1 text-xs font-medium ${
-                          action.labelKey === "delete"
-                            ? "border-red-200 text-red-600 hover:bg-red-50"
-                            : action.labelKey === "publish" || action.labelKey === "republish"
-                              ? "border-accent-300 bg-accent-50 text-accent-700 hover:bg-accent-100"
-                              : "border-slate-200 text-slate-600 hover:bg-slate-50"
-                        }`}
-                      >
-                        {dict.companyDash[action.labelKey]}
-                      </button>
-                    ))}
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </Card>
+      <div className="mt-6">
+        <DataTable
+          columns={columns}
+          rows={offers}
+          dict={dict}
+          exportFilename="offres.csv"
+        />
+      </div>
     </>
   );
 }

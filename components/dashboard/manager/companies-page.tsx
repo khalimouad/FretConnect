@@ -7,8 +7,9 @@ import type { Company, CompanyStatus } from "@/lib/domain/types";
 import { companies as seedCompanies } from "@/lib/data/mock";
 import { cityName } from "@/lib/data/geo";
 import { formatDate } from "@/lib/format";
-import { Card, CompanyStatusBadge, SubscriptionBadge } from "@/components/ui";
+import { CompanyStatusBadge, SubscriptionBadge } from "@/components/ui";
 import { useToast } from "@/components/toast";
+import { DataTable, type Column } from "@/components/table/data-table";
 
 const statusToast: Record<CompanyStatus, keyof Dictionary["toast"] | null> = {
   pending: null,
@@ -17,6 +18,8 @@ const statusToast: Record<CompanyStatus, keyof Dictionary["toast"] | null> = {
   rejected: null,
   closed: "companyClosed",
 };
+
+const companyStatuses: CompanyStatus[] = ["validated", "suspended", "closed"];
 
 export function ManagerCompaniesPage({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const { push } = useToast();
@@ -30,74 +33,85 @@ export function ManagerCompaniesPage({ locale, dict }: { locale: Locale; dict: D
     if (key) push(dict.toast[key]);
   }
 
+  const columns: Column<Company>[] = [
+    {
+      key: "name",
+      label: dict.auth.companyName,
+      sortable: true,
+      value: (c) => c.name,
+      render: (c) => (
+        <>
+          <p className="font-medium text-brand-950 dark:text-white">{c.name}</p>
+          <p className="text-xs text-slate-400 dark:text-slate-500">{cityName(c.cityId)}</p>
+        </>
+      ),
+    },
+    {
+      key: "status",
+      label: dict.common.status,
+      filterOptions: companyStatuses.map((s) => ({ value: s, label: dict.status[s] })),
+      filterValue: (c) => c.status,
+      render: (c) => <CompanyStatusBadge status={c.status} dict={dict} />,
+    },
+    {
+      key: "subStatus",
+      label: dict.managerDash.subStatus,
+      render: (c) => <SubscriptionBadge state={c.subscription.state} dict={dict} />,
+    },
+    {
+      key: "lastPayment",
+      label: dict.managerDash.lastPayment,
+      sortable: true,
+      value: (c) => c.subscription.lastPaymentOn ?? "",
+      render: (c) => (
+        <span className="whitespace-nowrap text-slate-500 dark:text-slate-400">
+          {c.subscription.lastPaymentOn ? formatDate(c.subscription.lastPaymentOn, locale) : "—"}
+        </span>
+      ),
+    },
+    {
+      key: "actions",
+      label: dict.common.actions,
+      render: (c) => (
+        <div className="flex flex-wrap gap-1.5">
+          {c.status === "validated" ? (
+            <button
+              onClick={() => setStatus(c.id, "suspended")}
+              className="cursor-pointer rounded-md border border-slate-200 px-2 py-1 text-xs font-medium text-slate-600 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
+            >
+              {dict.managerDash.suspend}
+            </button>
+          ) : null}
+          {c.status === "suspended" ? (
+            <button
+              onClick={() => setStatus(c.id, "validated")}
+              className="cursor-pointer rounded-md border border-accent-300 bg-accent-50 px-2 py-1 text-xs font-medium text-accent-700 hover:bg-accent-100 dark:border-accent-800 dark:bg-accent-950 dark:hover:bg-accent-900"
+            >
+              {dict.managerDash.reactivate}
+            </button>
+          ) : null}
+          {c.status !== "closed" ? (
+            <button
+              onClick={() => setStatus(c.id, "closed")}
+              className="cursor-pointer rounded-md border border-red-200 px-2 py-1 text-xs font-medium text-red-600 hover:bg-red-50 dark:border-red-900 dark:text-red-400 dark:hover:bg-red-950"
+            >
+              {dict.managerDash.close}
+            </button>
+          ) : null}
+        </div>
+      ),
+    },
+  ];
+
   return (
     <>
       <h1 className="text-2xl font-bold tracking-tight text-brand-950 dark:text-white">
         {dict.managerDash.companiesTitle}
       </h1>
 
-      <Card className="mt-6 overflow-x-auto">
-        <table className="w-full min-w-[720px] text-sm">
-          <thead>
-            <tr className="border-b border-slate-200 text-xs uppercase tracking-wide text-slate-400">
-              <th className="px-4 py-3 text-start font-medium">{dict.auth.companyName}</th>
-              <th className="px-4 py-3 text-start font-medium">{dict.common.status}</th>
-              <th className="px-4 py-3 text-start font-medium">{dict.managerDash.subStatus}</th>
-              <th className="px-4 py-3 text-start font-medium">{dict.managerDash.lastPayment}</th>
-              <th className="px-4 py-3 text-start font-medium">{dict.common.actions}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {companies.map((c) => (
-              <tr key={c.id} className="border-b border-slate-100 last:border-0">
-                <td className="px-4 py-3">
-                  <p className="font-medium text-brand-950 dark:text-white">{c.name}</p>
-                  <p className="text-xs text-slate-400 dark:text-slate-500">{cityName(c.cityId)}</p>
-                </td>
-                <td className="px-4 py-3">
-                  <CompanyStatusBadge status={c.status} dict={dict} />
-                </td>
-                <td className="px-4 py-3">
-                  <SubscriptionBadge state={c.subscription.state} dict={dict} />
-                </td>
-                <td className="whitespace-nowrap px-4 py-3 text-slate-500">
-                  {c.subscription.lastPaymentOn
-                    ? formatDate(c.subscription.lastPaymentOn, locale)
-                    : "—"}
-                </td>
-                <td className="px-4 py-3">
-                  <div className="flex flex-wrap gap-1.5">
-                    {c.status === "validated" ? (
-                      <button
-                        onClick={() => setStatus(c.id, "suspended")}
-                        className="cursor-pointer rounded-md border border-slate-200 px-2 py-1 text-xs font-medium text-slate-600 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
-                      >
-                        {dict.managerDash.suspend}
-                      </button>
-                    ) : null}
-                    {c.status === "suspended" ? (
-                      <button
-                        onClick={() => setStatus(c.id, "validated")}
-                        className="cursor-pointer rounded-md border border-accent-300 bg-accent-50 px-2 py-1 text-xs font-medium text-accent-700 hover:bg-accent-100 dark:border-accent-800 dark:bg-accent-950 dark:hover:bg-accent-900"
-                      >
-                        {dict.managerDash.reactivate}
-                      </button>
-                    ) : null}
-                    {c.status !== "closed" ? (
-                      <button
-                        onClick={() => setStatus(c.id, "closed")}
-                        className="cursor-pointer rounded-md border border-red-200 px-2 py-1 text-xs font-medium text-red-600 hover:bg-red-50 dark:border-red-900 dark:text-red-400 dark:hover:bg-red-950"
-                      >
-                        {dict.managerDash.close}
-                      </button>
-                    ) : null}
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </Card>
+      <div className="mt-6">
+        <DataTable columns={columns} rows={companies} dict={dict} exportFilename="societes.csv" />
+      </div>
     </>
   );
 }

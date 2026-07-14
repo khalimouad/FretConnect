@@ -2,11 +2,14 @@
 
 import { useState } from "react";
 import type { Dictionary } from "@/lib/i18n";
-import type { City } from "@/lib/domain/types";
+import type { City, Country } from "@/lib/domain/types";
 import { cities as seedCities, countries, regions } from "@/lib/data/geo";
 import { Button, Card, Field, inputClass } from "@/components/ui";
 import { GlobeIcon, MapPinIcon } from "@/components/icons";
 import { useToast } from "@/components/toast";
+import { DataTable, type Column } from "@/components/table/data-table";
+
+type CountryRow = Country & { id: string; regionCount: number; cityCount: number };
 
 /**
  * Admin §3.1: manage the Country > Region > City referential — including
@@ -24,6 +27,83 @@ export function GeoAdmin({ dict }: { dict: Dictionary }) {
     west_africa: "West Africa",
     europe: "Europe",
   };
+
+  const countryRows: CountryRow[] = countries.map((c) => ({
+    ...c,
+    id: c.code,
+    regionCount: regions.filter((r) => r.countryCode === c.code).length,
+    cityCount: cities.filter((ci) => ci.countryCode === c.code).length,
+  }));
+
+  const countryColumns: Column<CountryRow>[] = [
+    {
+      key: "code",
+      label: "ISO",
+      sortable: true,
+      value: (c) => c.code,
+      render: (c) => (
+        <span className="font-mono text-xs text-slate-500 dark:text-slate-400">{c.code}</span>
+      ),
+    },
+    {
+      key: "name",
+      label: dict.dash.geo,
+      sortable: true,
+      value: (c) => c.name,
+      render: (c) => (
+        <span className="inline-flex items-center gap-1.5 font-medium text-brand-950 dark:text-white">
+          <GlobeIcon width={14} height={14} className="text-slate-300 dark:text-slate-600" />
+          {c.name}
+        </span>
+      ),
+    },
+    {
+      key: "zone",
+      label: "Zone",
+      filterOptions: Object.entries(zoneLabel).map(([value, label]) => ({ value, label })),
+      filterValue: (c) => c.zone,
+      render: (c) => (
+        <span className="text-slate-500 dark:text-slate-400">{zoneLabel[c.zone]}</span>
+      ),
+    },
+    {
+      key: "currency",
+      label: dict.common.currency,
+      value: (c) => c.currency,
+      render: (c) => (
+        <span className="font-mono text-xs text-slate-500 dark:text-slate-400">{c.currency}</span>
+      ),
+    },
+    {
+      key: "status",
+      label: dict.common.status,
+      filterOptions: [
+        { value: "active", label: dict.adminDash.active },
+        { value: "planned", label: dict.adminDash.planned },
+      ],
+      filterValue: (c) => c.status,
+      render: (c) =>
+        c.status === "active" ? (
+          <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-200 dark:bg-emerald-950 dark:text-emerald-300 dark:ring-emerald-900">
+            {dict.adminDash.active}
+          </span>
+        ) : (
+          <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-500 ring-1 ring-inset ring-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:ring-slate-700">
+            {dict.adminDash.planned}
+          </span>
+        ),
+    },
+    {
+      key: "counts",
+      label: `${dict.adminDash.regionsCount} / ${dict.adminDash.citiesCount}`,
+      value: (c) => c.regionCount + c.cityCount,
+      render: (c) => (
+        <span className="text-slate-500 dark:text-slate-400">
+          {c.regionCount || "—"} / {c.cityCount || "—"}
+        </span>
+      ),
+    },
+  ];
 
   function addCity(e: React.FormEvent) {
     e.preventDefault();
@@ -47,55 +127,15 @@ export function GeoAdmin({ dict }: { dict: Dictionary }) {
       <p className="max-w-2xl text-sm text-slate-500 dark:text-slate-400">{dict.adminDash.geoHint}</p>
 
       {/* Countries */}
-      <Card className="mt-6 overflow-x-auto">
-        <table className="w-full min-w-[560px] text-sm">
-          <thead>
-            <tr className="border-b border-slate-200 text-xs uppercase tracking-wide text-slate-400">
-              <th className="px-4 py-3 text-start font-medium">ISO</th>
-              <th className="px-4 py-3 text-start font-medium">{dict.dash.geo}</th>
-              <th className="px-4 py-3 text-start font-medium">Zone</th>
-              <th className="px-4 py-3 text-start font-medium">{dict.common.currency}</th>
-              <th className="px-4 py-3 text-start font-medium">{dict.common.status}</th>
-              <th className="px-4 py-3 text-start font-medium">
-                {dict.adminDash.regionsCount} / {dict.adminDash.citiesCount}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {countries.map((c) => {
-              const regionCount = regions.filter((r) => r.countryCode === c.code).length;
-              const cityCount = cities.filter((ci) => ci.countryCode === c.code).length;
-              return (
-                <tr key={c.code} className="border-b border-slate-100 last:border-0 dark:border-slate-800">
-                  <td className="px-4 py-3 font-mono text-xs text-slate-500 dark:text-slate-400">{c.code}</td>
-                  <td className="px-4 py-3 font-medium text-brand-950 dark:text-white">
-                    <span className="inline-flex items-center gap-1.5">
-                      <GlobeIcon width={14} height={14} className="text-slate-300 dark:text-slate-600" />
-                      {c.name}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3 text-slate-500 dark:text-slate-400">{zoneLabel[c.zone]}</td>
-                  <td className="px-4 py-3 font-mono text-xs text-slate-500 dark:text-slate-400">{c.currency}</td>
-                  <td className="px-4 py-3">
-                    {c.status === "active" ? (
-                      <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-200 dark:bg-emerald-950 dark:text-emerald-300 dark:ring-emerald-900">
-                        {dict.adminDash.active}
-                      </span>
-                    ) : (
-                      <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-500 ring-1 ring-inset ring-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:ring-slate-700">
-                        {dict.adminDash.planned}
-                      </span>
-                    )}
-                  </td>
-                  <td className="px-4 py-3 text-slate-500 dark:text-slate-400">
-                    {regionCount || "—"} / {cityCount || "—"}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </Card>
+      <div className="mt-6">
+        <DataTable
+          columns={countryColumns}
+          rows={countryRows}
+          dict={dict}
+          pageSize={10}
+          exportFilename="pays.csv"
+        />
+      </div>
 
       {/* Regions & cities (Morocco, active) */}
       <div className="mt-8 flex flex-wrap items-center justify-between gap-3">

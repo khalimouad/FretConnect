@@ -338,6 +338,16 @@ const es: Dictionary = {
     moderationNote:
       "Moderación de último recurso: el administrador puede eliminar cualquier oferta publicada.",
   },
+  table: {
+    search: "Buscar…",
+    columns: "Columnas",
+    noData: "No hay filas coincidentes.",
+    export: "Exportar CSV",
+    previous: "Anterior",
+    next: "Siguiente",
+    pageOf: "Página {page} de {total}",
+    allValues: "Todos",
+  },
   theme: {
     light: "Tema claro",
     dark: "Tema oscuro",
