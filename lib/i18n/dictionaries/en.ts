@@ -85,6 +85,7 @@ const en = {
     langNote: "Available in Arabic, French, English and Spanish",
   },
   search: {
+    filters: "Filters",
     title: "Available return trips",
     subtitle: "Search return freight offers published by verified carriers.",
     departureCity: "Departure city",

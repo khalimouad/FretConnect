@@ -83,6 +83,7 @@ export function RouteMap({
           d={outlinePath}
           className="fill-slate-100 stroke-slate-300 dark:fill-slate-800/70 dark:stroke-slate-700"
           strokeWidth={1.5}
+          onClick={() => setHovered(null)}
         />
 
         {/* All cities as small dots */}
@@ -106,7 +107,7 @@ export function RouteMap({
                   x={x}
                   y={y - 6}
                   textAnchor="middle"
-                  className="fill-slate-600 text-[9px] font-medium dark:fill-slate-300"
+                  className="fill-slate-600 text-[10px] font-medium sm:text-[9px] dark:fill-slate-300"
                   style={{ fontFamily: "var(--font-inter), sans-serif" }}
                 >
                   {c.name}
@@ -119,23 +120,41 @@ export function RouteMap({
         {/* Route arcs */}
         {arcs.map(({ route, d }) => {
           const isHovered = hovered === route.id;
+          const handleActivate = () => {
+            if (hovered !== route.id) {
+              // First interaction (touch tap, or a click with no prior
+              // hover): reveal the tooltip instead of navigating away.
+              setHovered(route.id);
+              return;
+            }
+            if (route.href) router.push(route.href);
+          };
           return (
-            <path
-              key={route.id}
-              d={d}
-              fill="none"
-              className={
-                isHovered
-                  ? "stroke-accent-500 dark:stroke-accent-400"
-                  : "stroke-accent-400/60 dark:stroke-accent-500/50"
-              }
-              strokeWidth={isHovered ? 3 : 1.75}
-              strokeLinecap="round"
-              style={{ cursor: route.href ? "pointer" : "default", transition: "stroke-width 120ms" }}
-              onMouseEnter={() => setHovered(route.id)}
-              onMouseLeave={() => setHovered((h) => (h === route.id ? null : h))}
-              onClick={() => route.href && router.push(route.href)}
-            />
+            <g key={route.id}>
+              {/* Wider invisible hit area — the visible stroke is too thin to reliably tap */}
+              <path
+                d={d}
+                fill="none"
+                stroke="transparent"
+                strokeWidth={16}
+                style={{ cursor: route.href ? "pointer" : "default" }}
+                onMouseEnter={() => setHovered(route.id)}
+                onMouseLeave={() => setHovered((h) => (h === route.id ? null : h))}
+                onClick={handleActivate}
+              />
+              <path
+                d={d}
+                fill="none"
+                className={
+                  isHovered
+                    ? "stroke-accent-500 dark:stroke-accent-400"
+                    : "stroke-accent-400/60 dark:stroke-accent-500/50"
+                }
+                strokeWidth={isHovered ? 3 : 1.75}
+                strokeLinecap="round"
+                style={{ pointerEvents: "none", transition: "stroke-width 120ms" }}
+              />
+            </g>
           );
         })}
 

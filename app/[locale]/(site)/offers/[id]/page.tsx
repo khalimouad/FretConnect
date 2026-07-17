@@ -9,6 +9,8 @@ import { PriceTag } from "@/components/currency/price-tag";
 import { OriginalPriceNote } from "@/components/currency/original-note";
 import { OfferCard, RouteLine } from "@/components/offers/offer-card";
 import { ContactPanel } from "@/components/offers/contact-panel";
+import { AcceptProvider } from "@/components/offers/accept-state";
+import { MobileAcceptBar } from "@/components/offers/mobile-accept-bar";
 import { RouteMap } from "@/components/map/route-map";
 import { SocialContact } from "@/components/offers/social-contact";
 import { Card, OfferStatusBadge } from "@/components/ui";
@@ -71,7 +73,8 @@ export default async function OfferPage({
   ];
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+    <AcceptProvider>
+    <div className="mx-auto max-w-7xl px-4 py-10 pb-24 sm:px-6 lg:pb-10">
       <Link
         href={`/${locale}/search`}
         className="text-sm font-medium text-slate-500 hover:text-brand-800 dark:text-slate-400 dark:hover:text-brand-300"
@@ -237,5 +240,12 @@ export default async function OfferPage({
         </div>
       </div>
     </div>
+    <MobileAcceptBar
+      company={offer.company}
+      dict={dict}
+      route={`${cityName(offer.departureCityId)} → ${cityName(offer.arrivalCityId)}`}
+      date={formatDate(offer.availableFrom, locale)}
+    />
+    </AcceptProvider>
   );
 }

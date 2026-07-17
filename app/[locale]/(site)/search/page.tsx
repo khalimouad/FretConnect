@@ -6,6 +6,7 @@ import { cities } from "@/lib/data/geo";
 import type { CargoType, VehicleType } from "@/lib/domain/types";
 import { AlertButton } from "@/components/offers/alert-button";
 import { SearchResultsView } from "@/components/search/results-view";
+import { FiltersToggle } from "@/components/search/filters-toggle";
 import { Button, inputClass } from "@/components/ui";
 import { SearchIcon } from "@/components/icons";
 import Link from "next/link";
@@ -60,6 +61,15 @@ export default async function SearchPage({
   };
   const results = await searchOffers(filters);
   const hasRouteFilter = Boolean(filters.departure || filters.arrival);
+  const activeCount = [
+    filters.departure,
+    filters.arrival,
+    filters.dateFrom,
+    filters.vehicle,
+    filters.cargo,
+    filters.minTonnage,
+    filters.maxPrice,
+  ].filter((v) => v !== undefined).length;
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
@@ -69,10 +79,9 @@ export default async function SearchPage({
       <p className="mt-1 text-slate-500 dark:text-slate-400">{dict.search.subtitle}</p>
 
       {/* Filters */}
-      <form
-        method="GET"
-        className="mt-8 grid gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-card sm:grid-cols-2 lg:grid-cols-4 dark:border-slate-800 dark:bg-slate-900 dark:shadow-none"
-      >
+      <form method="GET" className="mt-8">
+      <FiltersToggle label={dict.search.filters} activeCount={activeCount}>
+      <div className="grid gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-card sm:grid-cols-2 lg:grid-cols-4 dark:border-slate-800 dark:bg-slate-900 dark:shadow-none">
         <label className="block">
           <span className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
             {dict.search.departureCity}
@@ -179,6 +188,8 @@ export default async function SearchPage({
             {dict.search.clearFilters}
           </Link>
         </div>
+      </div>
+      </FiltersToggle>
       </form>
 
       {/* Results */}

@@ -34,7 +34,7 @@ export function SearchResultsView({
         <button
           type="button"
           onClick={() => setView("list")}
-          className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+          className={`flex items-center gap-1.5 rounded-md px-4 py-2.5 text-sm font-medium transition-colors ${
             view === "list"
               ? "bg-brand-900 text-white dark:bg-brand-700"
               : "text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
@@ -46,7 +46,7 @@ export function SearchResultsView({
         <button
           type="button"
           onClick={() => setView("map")}
-          className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+          className={`flex items-center gap-1.5 rounded-md px-4 py-2.5 text-sm font-medium transition-colors ${
             view === "map"
               ? "bg-brand-900 text-white dark:bg-brand-700"
               : "text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"

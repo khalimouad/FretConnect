@@ -42,7 +42,7 @@ export default async function LandingPage({
     <>
       {/* Hero */}
       <section className="hero-grid bg-brand-950 text-white">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:py-28">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:py-28">
           <div className="max-w-3xl">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium text-brand-100">
               <GlobeIcon width={14} height={14} className="text-accent-400" />
@@ -84,7 +84,7 @@ export default async function LandingPage({
       </section>
 
       {/* How it works */}
-      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
         <div className="max-w-2xl">
           <h2 className="text-3xl font-bold tracking-tight text-brand-950 dark:text-white">
             {dict.landing.howTitle}
@@ -111,7 +111,7 @@ export default async function LandingPage({
       </section>
 
       {/* Latest offers */}
-      <section className="bg-white py-20 dark:bg-slate-950">
+      <section className="bg-white py-14 sm:py-20 dark:bg-slate-950">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <h2 className="text-3xl font-bold tracking-tight text-brand-950 dark:text-white">
@@ -133,7 +133,7 @@ export default async function LandingPage({
       </section>
 
       {/* Two audiences */}
-      <section className="mx-auto grid max-w-7xl gap-6 px-4 py-20 sm:px-6 lg:grid-cols-2">
+      <section className="mx-auto grid max-w-7xl gap-6 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-2">
         <div className="rounded-2xl bg-brand-950 p-8 text-white sm:p-10">
           <h3 className="text-2xl font-bold">{dict.landing.carriersTitle}</h3>
           <p className="mt-3 leading-relaxed text-brand-200">{dict.landing.carriersText}</p>
@@ -177,7 +177,7 @@ export default async function LandingPage({
 
       {/* Coverage + CTA */}
       <section className="bg-white dark:bg-slate-950">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
           <div className="max-w-2xl">
             <h2 className="text-3xl font-bold tracking-tight text-brand-950 dark:text-white">
               {dict.landing.coverageTitle}

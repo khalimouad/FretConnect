@@ -87,6 +87,7 @@ const es: Dictionary = {
     langNote: "Disponible en árabe, francés, inglés y español",
   },
   search: {
+    filters: "Filtros",
     title: "Retornos disponibles",
     subtitle:
       "Busque ofertas de flete de retorno publicadas por transportistas verificados.",

@@ -4,13 +4,14 @@ import { useState } from "react";
 import type { Dictionary } from "@/lib/i18n";
 import { Button } from "@/components/ui";
 import { CheckIcon, MessageIcon } from "@/components/icons";
+import { useAccept } from "@/components/offers/accept-state";
 
 /**
  * Accept + internal messaging panel (§4.5). Acceptance is a manifestation
  * of interest: the carrier is notified and must confirm the match.
  */
 export function ContactPanel({ dict }: { dict: Dictionary }) {
-  const [accepted, setAccepted] = useState(false);
+  const { accepted, setAccepted } = useAccept();
   const [message, setMessage] = useState("");
   const [sent, setSent] = useState(false);
 

@@ -87,6 +87,7 @@ const fr: Dictionary = {
     langNote: "Disponible en arabe, français, anglais et espagnol",
   },
   search: {
+    filters: "Filtres",
     title: "Trajets retour disponibles",
     subtitle:
       "Recherchez les offres de fret retour publiées par des transporteurs vérifiés.",
